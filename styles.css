@@ -1,0 +1,357 @@
+/* CSS Reset & Basic Styles (Cartier Inspired - Classy & Minimal) */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Merriweather', serif; /* Elegant serif body font - Cartier-like */
+    background-color: #fff; /*  <-- Changed to pure white */
+    color: #222; /* Very dark grey text - Cartier */
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font Import (Google Fonts - Link in HTML <head>) */
+/* Example: <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"> */
+
+/* Container and Layout - Increased Whitespace & Cleanliness */
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4rem 3rem; /* Even more padding for spaciousness - Cartier */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 3rem; /* Increased header padding */
+    border-bottom: 1px solid #ccc; /* Very light grey border - Understated */
+    margin-bottom: 4rem; /* Increased header margin */
+}
+
+.header h1 {
+    font-family: 'Playfair Display', serif; /* Elegant serif heading font - Cartier */
+    font-size: 2.8rem; /* Slightly larger heading */
+    color: #222;
+    letter-spacing: -0.09rem; /* Tighter letter spacing for serif headings */
+    font-weight: 700;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem; /* Increased spacing */
+}
+
+.social-link {
+    display: inline-block;
+    color: #555; /* Medium grey for links - Understated */
+    text-decoration: none;
+    padding: 0.7rem 1.4rem; /* Increased link padding */
+    border: 1px solid #ccc; /* Very light grey border */
+    border-radius: 0; /* Square corners - Cartier-like */
+    transition: all 0.2s ease-in-out; /* Smooth transition */
+}
+
+.social-link:hover,
+.social-link:focus {
+    color: #222; /* Darker text on hover */
+    background-color: #eee; /* Very light grey background on hover - Subtle */
+    border-color: #bbb; /* Slightly darker border on hover */
+}
+
+.social-icon {
+    /* Icons can be added or text styled as icons */
+}
+
+.content {
+    /* Main content area */
+}
+
+/* Sections - Skills, Experience, Certification - Minimal & Clean */
+.skills-section,
+.experience-section,
+.Certification {
+    margin-bottom: 4.5rem; /* Increased section margin */
+    padding: 2.5rem 3rem; /* Increased section padding */
+    background-color: #ffffff; /* Pure white section background - Cartier */
+    border-radius: 0; /* Square corners for sections - Clean */
+    box-shadow: none; /* Removed box shadow - More minimal */
+    border-top: none; /* Removed gold border */
+    border-bottom: 1px solid #ddd; /* Very light grey bottom border for sections */
+}
+
+.skill-header,
+.experience-name,
+.certification-name {
+    font-family: 'Playfair Display', serif; /* Elegant serif header font - Cartier */
+    font-size: 2rem; /* Larger section headers */
+    color: #222;
+    margin-bottom: 1.5rem; /* Increased header margin */
+    border-bottom: 2px solid #aaa; /* Light grey underline - Understated */
+    padding-bottom: 0.7rem; /* Increased header padding */
+    display: inline-block;
+    letter-spacing: -0.04rem; /* Slight letter spacing adjustment */
+}
+
+.certification-name {
+    font-size: 2.6rem; /* Larger main Certification header */
+    border-bottom-width: 3px; /* Slightly thicker underline for main header */
+    margin-bottom: 2rem; /* Increased margin for main header */
+}
+
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Wider min-width for skill columns */
+    gap: 3rem; /* Increased gap */
+}
+
+.skill-category {
+    /* Styles for skill category containers */
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem; /* Slightly increased gap */
+}
+
+.skill-item {
+    background-color: #eee; /* Very light grey skill item background - Clean */
+    color: #444; /* Darker grey skill item text */
+    padding: 0.5rem 1rem; /* Increased skill item padding */
+    border-radius: 0; /* Square corners for skill items - Clean */
+    font-size: 1.1rem; /* Slightly larger font size */
+    margin-bottom: 0.4rem;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Subtle hover transition */
+}
+
+.skill-item:hover,
+.skill-item:focus {
+    background-color: #ddd; /* Slightly darker grey hover background */
+    color: #222; /* Darker text on hover */
+}
+
+/* Experience Section - Alternate Layout - Clean & Minimal */
+.experience-section {
+    /* Already has section styling */
+}
+
+.experience-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3.5rem; /* Increased margin */
+    padding: 2rem 2.5rem; /* Increased padding */
+    border: none; /* Removed border - More minimal */
+    border-radius: 0; /* Square corners */
+    background-color: #f7f7f7; /* Very light grey experience item background */
+    box-shadow: none; /* Removed shadow */
+    border-bottom: 1px solid #eee; /* Very light grey bottom border for experience items */
+}
+
+.experience-item.alternate-right {
+    /* Styles for items on the right (if needed) */
+}
+
+.experience-item.alternate-left {
+    /* Styles for items on the left (if needed) */
+}
+
+@media (min-width: 768px) {
+    .experience-item {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 3.5rem; /* Increased gap for larger screens */
+    }
+
+    .experience-item.alternate-right .project-image {
+        order: 1;
+    }
+    .experience-item.alternate-right .experience-desc-container {
+        order: 2;
+    }
+    .experience-item.alternate-left .project-image {
+        order: 2;
+    }
+    .experience-item.alternate-left .experience-desc-container {
+        order: 1;
+    }
+    .experience-item.alternate-right,
+    .experience-item.alternate-left {
+        justify-content: space-between;
+    }
+}
+
+
+.experience-name {
+    margin-bottom: 0.8rem; /* Slightly increased margin */
+    font-size: 1.7rem; /* Slightly larger experience name */
+    font-weight: 700; /* Bolder experience name */
+}
+
+.experience-desc {
+    font-size: 1.15rem; /* Slightly larger experience description */
+    margin-bottom: 1.4rem; /* Increased margin */
+    color: #555; /* Medium grey description text */
+}
+
+.project-image {
+    flex: 0 0 38%; /* Slightly wider project image */
+    max-width: 38%;
+    border-radius: 0; /* Square image corners - Clean */
+    overflow: hidden;
+    box-shadow: none; /* Removed image shadow - Minimal */
+    transition: opacity 0.2s ease-in-out; /* Subtle image hover effect */
+}
+
+.project-image:hover,
+.project-image:focus {
+    opacity: 0.9; /* Slightly reduce opacity on hover - Subtle focus */
+}
+
+
+.project-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Certification Section - Clean & Minimal */
+.Certification {
+    /* Already has section styling */
+}
+
+.Cybrary {
+    /* Container for Cybrary certificates */
+}
+
+.Cybrary p {
+    margin-bottom: 1.2rem; /* Increased paragraph margin */
+    color: #555; /* Medium grey certificate description text */
+}
+
+.Cybrary img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0; /* Square certificate image corners - Clean */
+    margin-bottom: 1.8rem; /* Increased image margin */
+    box-shadow: none; /* Removed certificate image shadow - Minimal */
+    transition: opacity 0.2s ease-in-out; /* Subtle image hover effect */
+    opacity: 1; /* Full opacity by default - Clean */
+}
+
+.Cybrary img:hover,
+.Cybrary img:focus {
+    opacity: 0.85; /* Slightly reduce opacity on hover - Subtle focus */
+}
+
+
+/* Footer - Clean & Minimal */
+.footer {
+    text-align: center;
+    padding: 3.5rem 0; /* Increased footer padding */
+    border-top: 1px solid #ccc; /* Very light grey footer border */
+    margin-top: 5.5rem; /* Increased footer margin */
+    font-size: 1.05rem; /* Slightly larger footer font */
+    color: #777; /* Lighter grey footer text color */
+}
+
+/* Media Queries for Responsiveness - Refined Breakpoints */
+
+@media (max-width: 767px) { /* Mobile screens */
+    .container {
+        padding: 2.5rem 2rem; /* Adjusted mobile container padding */
+    }
+    .header {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 2.5rem; /* Adjusted mobile header padding */
+        margin-bottom: 3rem; /* Adjusted mobile header margin */
+    }
+    .header h1 {
+        font-size: 2.4rem; /* Adjusted mobile heading size */
+        margin-bottom: 1rem; /* Adjusted mobile heading margin */
+    }
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem; /* Adjusted mobile social links gap */
+    }
+    .social-link {
+        padding: 0.6rem 1.2rem; /* Adjusted mobile social link padding */
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr; /* Single column grid on mobile */
+        gap: 2.5rem; /* Adjusted mobile skills grid gap */
+    }
+    .skills-section,
+    .experience-section,
+    .Certification {
+        padding: 2rem; /* Adjusted mobile section padding */
+        margin-bottom: 3.5rem; /* Adjusted mobile section margin */
+    }
+    .skill-header,
+    .experience-name,
+    .certification-name {
+        font-size: 1.7rem; /* Adjusted mobile section header size */
+        margin-bottom: 1.2rem; /* Adjusted mobile section header margin */
+        padding-bottom: 0.6rem; /* Adjusted mobile section header padding */
+    }
+    .certification-name {
+        font-size: 2.3rem; /* Adjusted mobile main certification header */
+    }
+    .experience-item {
+        padding: 1.8rem; /* Adjusted mobile experience item padding */
+        margin-bottom: 3rem; /* Adjusted mobile experience item margin */
+    }
+    .project-image {
+        flex: 0 0 100%; /* Full width image on mobile */
+        max-width: 100%;
+        margin-bottom: 1.2rem; /* Margin below image on mobile */
+    }
+    .experience-desc {
+        margin-bottom: 1rem; /* Adjusted mobile experience desc margin */
+    }
+    .Cybrary img {
+        margin-bottom: 1.5rem; /* Adjusted mobile certificate image margin */
+    }
+    .footer {
+        padding: 3rem 0; /* Adjusted mobile footer padding */
+        margin-top: 4.5rem; /* Adjusted mobile footer margin */
+        font-size: 1rem; /* Adjusted mobile footer font size */
+
+    }
+}
+
+
+@media (min-width: 1400px) { /* Larger desktop screens */
+    .container {
+        max-width: 1400px;
+    }
+    .header h1 {
+        font-size: 3.2rem; /* Larger heading on very large screens */
+    }
+    .skill-header,
+    .experience-name,
+    .certification-name {
+        font-size: 2.2rem; /* Slightly larger section headers */
+    }
+    .experience-desc {
+        font-size: 1.2rem; /* Slightly larger experience description */
+    }
+    .footer {
+        font-size: 1.1rem; /* Slightly larger footer font */
+    }
+}
