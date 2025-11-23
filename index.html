@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!--
     <div id="loader">
          <pre>
    ██████╗ ██╗  ██╗██╗   ██╗███████╗██╗  ██╗ █████╗ ███╗   ██╗
@@ -18,19 +17,19 @@
    ██████╔╝██║  ██║╚██████╔╝███████║██║  ██║██║  ██║██║ ╚████║
    ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
 
-   /* You found me. Or perhaps, I led you here. Initializing... */
+   /* Initializing... */
    </pre>
     </div>
-    -->
 
     <header class="unloaded">
-        <div class="header-name">Bhushan Ladgaonkar</div>
+        <!-- FIXED: Shortened Brand Name -->
+        <div class="header-name">~/Bhushan_Ladgaonkar</div>
         <nav>
             <a href="#about">~/about</a>
+            <a href="#experience">~/experience</a> <!-- Added Link -->
             <a href="#skills">~/skills</a>
             <a href="#projects">~/projects</a>
-            <a href="#certifications">~/experiences</a>
-            <a href="#certifications">~/certifications</a>
+            <a href="#certifications">~/certs</a>
             <a href="#contact">~/contact</a>
         </nav>
         <div class="theme-switcher">
@@ -52,32 +51,62 @@
                 <span>bash - 80x24</span>
             </div>
             <div class="terminal-body">
+                
                 <section id="about">
                     <h2>~/about</h2>
-                    <p>I believe that technology should empower everyone, and that begins with making it safe. This belief drives me as a Computer Engineering student at Fr. Conceicao Rodrigues College of Engineering and is why I dedicate myself to the art of digital security. I love tackling a good challenge, and I independently pursue advanced knowledge from sources like CS50 and pwn.college to deepen my expertise. My goal is to apply my problem-solving skills to create robust, secure, and accessible digital experiences.</p>
+                    <!-- FIXED: Tightened Copy, included full legal name here naturally -->
+                    <p>Hi, I'm <strong>Bhushan Nandita Anand Ladgaonkar</strong>. I am a Computer Engineering student at Fr. Conceicao Rodrigues College focused on offensive security operations and machine learning. I independently pursue advanced knowledge from sources like CS50 and pwn.college to deepen my expertise, with the goal of creating robust, secure digital experiences.</p>
+                </section>
+
+                <!-- FIXED: Added Experience Section -->
+                <section id="experience">
+                    <h2>~/experience</h2>
+                    <div class="project-item">
+                        <!-- Placeholder icon for generic work if no image available -->
+                        <div class="project-item-content">
+                            <h3>Internship @ ONGC</h3>
+                            <p class="role-date">Summer Intern | Network Security</p>
+                            <p>Successfully completed a comprehensive summer training and internship program at Oil and Natural Gas Corporation (ONGC). Gained practical industry experience in analyzing network infrastructure, auditing security protocols, and understanding enterprise-level data protection strategies.</p>
+                             <div class="project-tags">
+                                <span>Network Security</span>
+                                <span>Infrastructure Audit</span>
+                                <span>Enterprise IT</span>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="skills">
                     <h2>~/skills</h2>
-                    <div class="skills-content">
-                        <ul class="skills-list">
-                            <li>C</li>
-                            <li>Java</li>
-                            <li>Python</li>
-                            <li>SQL</li>
-                            <li>KALI Linux</li>
-                            <li>OSINT</li>
-                            <li>Cyber Kill Chains</li>
-                            <li>Offensive Security Operations</li>
-                            <li>Reconnaissance & Enumeration</li>
-                            <li>Machine Learning</li>
-                            <li>Scikit-learn</li>
-                            <li>Pandas</li>
-                            <li>NumPy</li>
-                        </ul>
-                        <div class="badges">
-                             <img src="images/Hackerank_Badges_dark.png" alt="HackerRank Badges (Dark Mode)" class="badge-dark">
-                             <img src="images/Hackerank_Badges_light.png" alt="HackerRank Badges (Light Mode)" class="badge-light">
+                    <!-- FIXED: Categorized Skills & Removed HackerRank Badges -->
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h3>> Languages</h3>
+                            <ul>
+                                <li>Python</li>
+                                <li>C / C++</li>
+                                <li>Java</li>
+                                <li>SQL</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>> Security</h3>
+                            <ul>
+                                <li>Kali Linux</li>
+                                <li>Burp Suite</li>
+                                <li>OSINT</li>
+                                <li>Cyber Kill Chain</li>
+                                <li>Recon & Enumeration</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>> Data & ML</h3>
+                            <ul>
+                                <li>Pandas</li>
+                                <li>NumPy</li>
+                                <li>Scikit-learn</li>
+                                <li>Machine Learning</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -85,88 +114,54 @@
                 <section id="projects">
                     <h2>~/projects</h2>
                     <div class="project-item">
-                        <img src="images/NIDS.png" alt="Image of a Network Intrusion Detection System" class="project-item-image">
+                        <img src="images/NIDS.png" alt="Network Intrusion Detection System" class="project-item-image">
                         <div class="project-item-content">
                             <h3>Network Intrusion Detection System</h3>
-                            <p>Developed a high-performance Network Intrusion Detection System (NIDS) using machine learning to address the failure of traditional signature-based systems in detecting novel and zero-day attacks. The project involved a complete data science workflow, from preprocessing the comprehensive UNSW-NB15 dataset to feature engineering and a comparative analysis of multiple models. The final solution identified the RandomForest model with SMOTE as the best overall performer, achieving an excellent balance between high detection rates and low false positives.</p>
+                            <p>Developed a high-performance NIDS using machine learning to detect novel and zero-day attacks. Executed a full data science workflow on the UNSW-NB15 dataset. The final Random Forest model (with SMOTE) achieved an excellent balance between high detection rates and low false positives.</p>
                             <div class="project-tags">
                                 <span>Python</span>
                                 <span>Machine Learning</span>
                                 <span>Scikit-learn</span>
-                                <span>Pandas</span>
-                                <span>NumPy</span>
                             </div>
-                            <a href="https://github.com/beeth73/Summer_Internship_NIDS" class="project-link">View on GitHub</a>
+                            <a href="https://github.com/beeth73/Summer_Internship_NIDS" class="project-link" target="_blank">View on GitHub</a>
                         </div>
                     </div>
+                    
                     <div class="project-item">
-                        <img src="images/cultura.png" alt="Image representing a community-managed cultural calendar" class="project-item-image">
+                        <img src="images/cultura.png" alt="CULTURA Project" class="project-item-image">
                         <div class="project-item-content">
                             <h3>CULTURA Project</h3>
-                            <p>Contributed as a software developer to the CULTURA project, a community-managed cultural calendar. Responsibilities included backend development and creating a user-facing annotation tool, which significantly enhanced the platform's collaborative capabilities and user engagement.</p>
+                            <p>Backend developer for a community-managed cultural calendar. Built the core API and a user-facing annotation tool that significantly enhanced collaborative capabilities and user engagement.</p>
                              <div class="project-tags">
                                 <span>Java</span>
                                 <span>SQL</span>
-                                <span>Backend Development</span>
+                                <span>Backend</span>
                             </div>
-                            <a href="https://github.com/beeth73/A20" class="project-link">View on GitHub</a>
+                            <a href="https://github.com/beeth73/A20" class="project-link" target="_blank">View on GitHub</a>
                         </div>
                     </div>
-                </section>
-
-                <section id="experiences">
-                     <div class="project-item">
-                        <img src="images/tails.png" alt="Image of the TailsOS logo" class="project-item-image">
-                        <div class="project-item-content">
-                            <h3>TailsOS Exploration</h3>
-                            <p>Explored the setup and functionality of the TailsOS privacy-focused operating system. Gained hands-on experience with Linux concepts such as .iso and .image files, persistence, amnesic storage, and the Tor network to understand the foundations of secure and anonymous computing environments.</p>
-                             <div class="project-tags">
-                                <span>Linux</span>
-                                <span>TailsOS</span>
-                                <span>Cybersecurity</span>
-                                <span>Tor</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="certificate-card">
-                            <img src="images/Certificate_of_Completion_Internship_at_ONGC.png" alt="Certificate for Internship at ONGC" data-description="Successfully completed a comprehensive summer training and internship program at ONGC, gaining practical industry experience in network infrastructure and security protocols.">
-                             <p class="certificate-title">Internship at ONGC</p>
-                        </div>
                 </section>
 
                 <section id="certifications">
                     <h2>~/certifications</h2>
                     <div class="certificate-grid">
                         <div class="certificate-card">
-                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Certificate for Cyber Kill Chains" data-description="Demonstrates expertise in identifying, analyzing, and mitigating the stages of a cyber attack, from initial reconnaissance to final data exfiltration.">
+                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chains" data-description="Expertise in identifying and mitigating the stages of a cyber attack, from reconnaissance to data exfiltration.">
                             <p class="certificate-title">Cyber Kill Chains</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/OSINT.jpeg" alt="Certificate for OSINT" data-description="Validates skills in gathering, analyzing, and leveraging Open-Source Intelligence (OSINT) from publicly available sources for security assessments and investigations.">
+                            <img src="images/OSINT.jpeg" alt="OSINT" data-description="Validates skills in gathering and analyzing Open-Source Intelligence from publicly available sources.">
                             <p class="certificate-title">OSINT</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Offensive_Security_Operations.png" alt="Certificate for Offensive Security Operations" data-description="Showcases proficiency in planning and executing ethical hacking engagements, including penetration testing, vulnerability assessment, and exploit development.">
+                            <img src="images/Offensive_Security_Operations.png" alt="Offensive Security Ops" data-description="Proficiency in ethical hacking engagements, penetration testing, and vulnerability assessment.">
                             <p class="certificate-title">Offensive Security Ops</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Reconissance_Enumaration_Basics.jpeg" alt="Certificate for Reconnaissance & Enumeration" data-description="Certifies foundational knowledge in network discovery, port scanning, and service enumeration, which are critical first steps in any security audit.">
+                            <img src="images/Reconissance_Enumaration_Basics.jpeg" alt="Recon & Enumeration" data-description="Foundational knowledge in network discovery, port scanning, and service enumeration.">
                              <p class="certificate-title">Recon & Enumeration</p>
                         </div>
-                        <div class="certificate-card">
-                            <img src="images/SEEK.png" alt="Certificate for SEEK" data-description="Social Emotional Education for Kids - Highlights competence in applying child development principles to educational software and safety tools.">
-                            <p class="certificate-title">Social Emotional Education for Kids</p>
-                        </div>
-                        <div class="certificate-card">
-                            <img src="images/SEL.png" alt="Certificate for SEL" data-description="Social Emotional Learning for Youth Waging Peace - Explored the role of social-emotional learning and technology in conflict resolution and peace-building initiatives for young people.">
-                             <p class="certificate-title">Social Emotional Learning for Youth Waging Peace</p>
-                        </div>
-                        <!--
-                        <div class="certificate-card">
-                            <img src="images/Certificate_of_Completion_Internship_at_ONGC.png" alt="Certificate for Internship at ONGC" data-description="Successfully completed a comprehensive summer training and internship program at ONGC, gaining practical industry experience in network infrastructure and security protocols.">
-                             <p class="certificate-title">Internship at ONGC</p>
-                        </div>
-                        -->
+                        <!-- REMOVED SEEK and SEL Certs as requested -->
                     </div>
                 </section>
 
@@ -175,7 +170,7 @@
                     <div class="social-links">
                          <a href="https://github.com/beeth73" target="_blank">GitHub</a>
                          <a href="https://www.linkedin.com/in/bhushan-ladgaonkar-873abb269/" target="_blank">LinkedIn</a>
-                         <a href="https://www.hackerrank.com/profile/Beeth" target="_blank">HackerRank</a>
+                         <!-- Removed HackerRank Link/Widget to align with removal of bad stats -->
                          <a href="mailto:bhushanladgaonkar@gmail.com">Email</a>
                     </div>
                 </section>
@@ -192,12 +187,7 @@
         </div>
     </div>
 
+    <!-- Correctly linked script -->
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
