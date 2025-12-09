@@ -319,6 +319,21 @@ section { margin-bottom: 4rem; }
     border-radius: 4px;
 }
 
+
+.resume-link {
+    color: var(--accent-color) !important; /* Forces it to be the accent color */
+    border: 1px solid var(--accent-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.resume-link:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color) !important;
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     header {
@@ -336,3 +351,4 @@ section { margin-bottom: 4rem; }
     .project-item-image { width: 100%; height: auto; }
     .theme-switcher { position: absolute; top: 1rem; right: 1rem; }
 }
+
