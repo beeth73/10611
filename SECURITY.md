@@ -14,7 +14,7 @@ Since this is a personal portfolio website hosted on GitHub Pages, only the curr
 As a Security Researcher, I welcome responsible disclosure. If you find a vulnerability in this portfolio (e.g., DOM-based XSS, Content Injection), please report it.
 
 ### How to Report
-Please email me directly at **bhushanladgaonkar@gmail.com** with the subject line: `[SECURITY] Vulnerability Report - Portfolio`.
+Please email me directly at **bhushanladgaonkar@gmail.com** with the subject line: `[SECURITY] Vulnerability Report - Portfolio`. Alternatively, you can use the Private Vulnerability Reporting tab in this repository to submit findings securely.
 
 In your report, please include:
 1.  Description of the vulnerability.
