@@ -1,69 +1,28 @@
-# ~/Portfolio_Terminal
-
+# 10611
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Security: Managed](https://img.shields.io/badge/Security-Policy-green)](SECURITY.md)
 [![Status: Live](https://img.shields.io/badge/Status-Deployed-blue)](https://beeth73.github.io/10611/)
 
-A highly optimized, terminal-themed engineering portfolio built on **Fundamentals**.
+**Why the random number?**
+It started as a generic college assignment (Roll No: 10611). It was supposed to be a simple submission to get a grade. 
 
-> **Live Deployment:** [beeth73.github.io/10611](https://beeth73.github.io/10611/)
+But I couldn't leave it alone. It evolved from "homework" into a personal engineering statement.
 
----
+## The Philosophy: Return to Fundamentals
 
-## ⚡ Engineering Philosophy
+I look around the web and see static portfolios shipping with heavy frameworks and massive bundles just to render text on a screen. It felt wrong.
 
-In an era of 5MB JavaScript bundles and heavy frameworks, this project is a return to fundamentals. It is designed to be:
+I wanted to strip away the bloat and focus on **Fundamentals**, not frameworks.
 
-*   **Bloat-Free:** Zero frameworks. No React, No Tailwind, No jQuery. Just raw, semantic code.
-*   **Universal:** Renders perfectly in 4K Chrome, mobile viewports, and text-based terminal browsers like `lynx` or `w3m` (via SSH/Termux).
-*   **Accessible:** Semantic HTML structure ensures full compatibility with screen readers and keyboard navigation (`:focus-visible` support).
-*   **Secure:** Implements strict Content Security Policy (CSP) headers and privacy-respecting analytics (GoatCounter).
+### Under the Hood
+*   **Semantic HTML:** Structure over `<div>` soup. The code describes the content, making it readable for screen readers and search engines.
+*   **Raw CSS:** Performance over libraries. No Tailwind, no Bootstrap. Just the cascade.
+*   **Vanilla JS:** Used sparingly for the theme toggler and modal logic. No hydration steps, no build process.
+*   **Universal Compatibility:** Because I stuck to standards, this site renders perfectly in a 4K browser and remains fully functional in text-only terminals like `lynx` or `termux`.
 
-## 🛠️ Tech Stack
+### The Result
+A terminal-themed portfolio that actually respects the medium it simulates. It’s lightweight, accessible, and fast.
 
-*   **Core:** HTML5 (Semantic), CSS3 (Variables & Flexbox), Vanilla JavaScript (ES6+).
-*   **Typography:** Fira Code (Monospaced).
-*   **Analytics:** GoatCounter (GDPR Compliant, No-Cookie).
-*   **Hosting:** GitHub Pages.
-
-## 🚀 Features
-
-*   **Terminal Aesthetic:** CLI-style interface with a command-line loader and "hacker" visual theme.
-*   **Dark/Light Mode:** CSS Variable-based theming with local storage persistence.
-*   **Project Showcase:** Dedicated sections for high-level engineering projects:
-    *   **MendikotZero:** AlphaZero-style RL agent trained via Self-Play.
-    *   **NIDS Engine:** ML-based Network Intrusion Detection System (XGBoost/RandomForest).
-*   **Resume Integration:** Direct PDF access via header navigation.
-
-## 📦 Installation & Local Dev
-
-If you want to fork this or test it locally:
-
-1.  **Clone the repo:**
-    ```bash
-    git clone https://github.com/beeth73/10611.git
-    cd 10611
-    ```
-
-2.  **Run locally (Python):**
-    Since this is a static site, you don't need `npm`. Just serve the files.
-    ```bash
-    python3 -m http.server 8000
-    ```
-
-3.  **View:**
-    Open `http://localhost:8000` in your browser.
-
-## 🤝 Contributing & Forking
-
-This project is open source and designed to be used as a template.
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to customize the ASCII art, links, and colors for your own portfolio.
-
-## 🛡️ Security
-
-This repository follows responsible disclosure.
-Please read [SECURITY.md](SECURITY.md) for our vulnerability reporting policy and scope.
-
----
+**[View Live Deployment](https://beeth73.github.io/10611/)**
 
 **© 2025 Bhushan Ladgaonkar**
