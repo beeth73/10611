@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhushan Ladgaonkar</title>
+    
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; connect-src 'self' https://*.goatcounter.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -22,16 +27,16 @@
     </div>
 
     <header class="unloaded">
-       
-        <div class="header-name">~/Bhushan_Ladgaonkar</div>
+        <div class="header-name"><span aria-hidden="true">~/</span>Bhushan_Ladgaonkar</div>
         <nav>
-            <a href="#about">~/about</a>
-            <a href="#experience">~/experience</a> <!-- Added Link -->
-            <a href="#skills">~/skills</a>
-            <a href="#projects">~/projects</a>
-            <a href="#certifications">~/certs</a>
-            <a href="#contact">~/contact</a>
-            <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" class="resume-link">~/resume.pdf</a>
+            <!-- Accessibility Fix: Screen readers will skip the "~/" -->
+            <a href="#about"><span aria-hidden="true">~/</span>about</a>
+            <a href="#experience"><span aria-hidden="true">~/</span>experience</a>
+            <a href="#skills"><span aria-hidden="true">~/</span>skills</a>
+            <a href="#projects"><span aria-hidden="true">~/</span>projects</a>
+            <a href="#certifications"><span aria-hidden="true">~/</span>certs</a>
+            <a href="#contact"><span aria-hidden="true">~/</span>contact</a>
+            <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" class="resume-link"><span aria-hidden="true">~/</span>resume.pdf</a>
         </nav>
         <div class="theme-switcher">
             <label class="switch">
@@ -54,22 +59,17 @@
             <div class="terminal-body">
                 
                 <section id="about">
-                    <h2>~/about</h2>
-                   
-                    <p>Hi, I'm <strong>Bhushan Nandita Anand Ladgaonkar</strong>. I am a Computer Engineering student at Fr. Conceicao Rodrigues College focused on offensive security operations and machine learning. I independently pursue advanced knowledge from sources like CS50 and pwn.college to deepen my expertise, with the goal of creating robust, secure digital experiences.</p>
+                    <h2><span aria-hidden="true">~/</span>about</h2>
+                    <p>Hi, I'm <strong>Bhushan Nandita Anand Ladgaonkar</strong>. I am a Computer Engineering student at Fr. Conceição Rodrigues College focused on offensive security operations and machine learning. I independently pursue advanced knowledge from sources like CS50 and pwn.college to deepen my expertise, with the goal of creating robust, secure digital experiences.</p>
                 </section>
 
-                <!-- FIXED: Added Experience Section -->
                 <section id="experience">
-                    <h2>~/experience</h2>
+                    <h2><span aria-hidden="true">~/</span>experience</h2>
                     <div class="project-item">
-                      
                         <div class="project-item-content">
                             <h3>Internship @ ONGC</h3>
                             <p class="role-date">Summer Intern | Database Group (WOB)</p> 
-
                             <p>Developed an ML-based Network Intrusion Detection System (NIDS) to address the limitations of static signature-based security. Engineered a data pipeline processing the UNSW-NB15 dataset (2M+ records) and optimized detection models (RandomForest, XGBoost) using SMOTE to handle class imbalance. Analyzed zero-day attack patterns under the guidance of the Database Programming division.</p>
-
                             <div class="project-tags">
                                 <span>Network Security</span>
                                 <span>Machine Learning</span>
@@ -80,8 +80,7 @@
                 </section>
 
                 <section id="skills">
-                    <h2>~/skills</h2>
-                    
+                    <h2><span aria-hidden="true">~/</span>skills</h2>
                     <div class="skills-grid">
                         <div class="skill-category">
                             <h3>> Languages</h3>
@@ -115,9 +114,27 @@
                 </section>
 
                 <section id="projects">
-                    <h2>~/projects</h2>
+                    <h2><span aria-hidden="true">~/</span>projects</h2>
+                    
+                    <!-- MendikotZero (Pinned First) -->
                     <div class="project-item">
-                        <img src="images/NIDS.png" alt="Network Intrusion Detection System" class="project-item-image">
+                        <img src="images/mendikot_paper_preview.png" alt="MendikotZero Architecture Diagram" class="project-item-image">
+                        <div class="project-item-content">
+                            <h3>MendikotZero: AlphaZero RL Agent</h3>
+                            <p>Engineered an autonomous AI agent for the Indian card game 'Mendikot' using Deep Reinforcement Learning. Implemented the <strong>AlphaZero architecture</strong> from scratch, utilizing Monte Carlo Tree Search (MCTS) guided by a Dual-Head Neural Network. The agent was trained via self-play without human data, evolving from random moves to advanced strategic planning.</p>
+                            <div class="project-tags">
+                                <span>Python</span>
+                                <span>PyTorch</span>
+                                <span>Reinforcement Learning</span>
+                                <span>MCTS</span>
+                            </div>
+                            <a href="https://github.com/beeth73/Mendikot_ai_project" class="project-link" target="_blank">View Code & Paper</a>
+                        </div>
+                    </div>
+
+                    <!-- NIDS -->
+                    <div class="project-item">
+                        <img src="images/NIDS.png" alt="Network Intrusion Detection System Metrics" class="project-item-image">
                         <div class="project-item-content">
                             <h3>Network Intrusion Detection System</h3>
                             <p>Developed a high-performance NIDS using machine learning to detect novel and zero-day attacks. Executed a full data science workflow on the UNSW-NB15 dataset. The final Random Forest model (with SMOTE) achieved an excellent balance between high detection rates and low false positives.</p>
@@ -129,31 +146,14 @@
                             <a href="https://github.com/beeth73/Summer_Internship_NIDS" class="project-link" target="_blank">View on GitHub</a>
                         </div>
                     </div>
-                    
-                    <div class="project-item">
-    
-                        <img src="images/mendikot_paper_preview.png" alt="MendikotZero Architecture" class="project-item-image">
-                        <div class="project-item-content">
-                            <h3>MendikotZero: AlphaZero RL Agent</h3>
-                            <p>Engineered an autonomous AI agent for the Indian card game 'Mendikot' using Deep Reinforcement Learning. Implemented the <strong>AlphaZero architecture</strong> from scratch, utilizing Monte Carlo Tree Search (MCTS) guided by a Dual-Head Neural Network. The agent was trained via self-play without human data, evolving from random moves to advanced strategic planning.</p>
-                        <div class="project-tags">
-                    <span>Python</span>
-                    <span>PyTorch</span>
-                    <span>Reinforcement Learning</span>
-                    <span>MCTS</span>
-                    </div>
-        
-        <a href="https://github.com/beeth73/Mendikot_ai_project" class="project-link" target="_blank">View Code & Paper</a>
-    </div>
-</div>
                 </section>
 
                 <section id="certifications">
-                    <h2>~/certifications</h2>
+                    <h2><span aria-hidden="true">~/</span>certifications</h2>
                     <div class="certificate-grid">
                         <div class="certificate-card">
-                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chains" data-description="Expertise in identifying and mitigating the stages of a cyber attack, from reconnaissance to data exfiltration.">
-                            <p class="certificate-title">Cyber Kill Chains</p>
+                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chain" data-description="Expertise in identifying and mitigating the stages of a cyber attack, from reconnaissance to data exfiltration.">
+                            <p class="certificate-title">Cyber Kill Chain</p>
                         </div>
                         <div class="certificate-card">
                             <img src="images/OSINT.jpeg" alt="OSINT" data-description="Validates skills in gathering and analyzing Open-Source Intelligence from publicly available sources.">
@@ -164,14 +164,15 @@
                             <p class="certificate-title">Offensive Security Ops</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Reconissance_Enumaration_Basics.jpeg" alt="Recon & Enumeration" data-description="Foundational knowledge in network discovery, port scanning, and service enumeration.">
+                            <!-- NOTE: Filename has typos, but keeping src same to ensure load -->
+                            <img src="images/Reconissance_Enumaration_Basics.jpeg" alt="Reconnaissance & Enumeration" data-description="Foundational knowledge in network discovery, port scanning, and service enumeration.">
                              <p class="certificate-title">Recon & Enumeration</p>
                         </div>
                     </div>
                 </section>
 
                 <section id="contact">
-                    <h2>~/contact</h2>
+                    <h2><span aria-hidden="true">~/</span>contact</h2>
                     <div class="social-links">
                          <a href="https://github.com/beeth73" target="_blank">GitHub</a>
                          <a href="https://www.linkedin.com/in/bhushan-ladgaonkar/" target="_blank">LinkedIn</a>
@@ -191,16 +192,8 @@
         </div>
     </div>
 
-    
     <script src="script.js"></script>
-    <script data-goatcounter="https://beeth.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
+    <!-- Privacy-friendly analytics (Deferred for performance) -->
+    <script data-goatcounter="https://beeth.goatcounter.com/count" async src="//gc.zgo.at/count.js" defer></script>
 </body>
 </html>
-
-
-
-
-
-
-
