@@ -4,7 +4,7 @@
 [![Security: Managed](https://img.shields.io/badge/Security-Policy-green)](SECURITY.md)
 [![Status: Live](https://img.shields.io/badge/Status-Deployed-blue)](https://beeth73.github.io/10611/)
 
-A highly optimized, terminal-themed engineering portfolio built on **First Principles**.
+A highly optimized, terminal-themed engineering portfolio built on **Fundamentals**.
 
 > **Live Deployment:** [beeth73.github.io/10611](https://beeth73.github.io/10611/)
 
