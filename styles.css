@@ -352,3 +352,24 @@ section { margin-bottom: 4rem; }
     .theme-switcher { position: absolute; top: 1rem; right: 1rem; }
 }
 
+
+/* Mobile Loader Fix */
+@media (max-width: 768px) {
+    #loader pre {
+        font-size: 0.5rem; /* Shrink the text drastically to fit */
+        line-height: 0.6rem;
+        overflow: hidden; 
+    }
+    
+    /* Optional: If it still breaks, use this instead to hide the art 
+       and just show text on mobile: */
+    /* 
+    #loader pre { display: none; }
+    #loader::after { 
+        content: "Initializing System..."; 
+        color: var(--accent-color);
+        font-size: 1.2rem;
+    } 
+    */
+}
+
