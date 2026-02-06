@@ -25,4 +25,4 @@ A terminal-themed portfolio that actually respects the medium it simulates. It�
 
 **[View Live Deployment](https://beeth73.github.io/10611/)**
 
-**© 2025 Bhushan Ladgaonkar**
+**© 2026 Bhushan Ladgaonkar**
