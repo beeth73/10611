@@ -7,7 +7,7 @@
     --bg-color-dark: #000000; /* Was #1a1a1a */
     --text-color-dark: #e0e0e0;
     --accent-color-dark: #00aaff;
-    --terminal-header-dark: #2a2a2a;
+    --terminal-header-dark: #121212; /* Was #2a2a2a */
 
     --bg-color: var(--bg-color-light);
     --text-color: var(--text-color-light); 
@@ -375,4 +375,5 @@ section { margin-bottom: 4rem; }
         overflow: hidden; 
     }
 }
+
 
