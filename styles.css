@@ -4,7 +4,7 @@
     --accent-color-light: #00aaff;
     --terminal-header-light: #e0e0e0;
     
-    --bg-color-dark: #1a1a1a;
+    --bg-color-dark: #000000; /* Was #1a1a1a */
     --text-color-dark: #e0e0e0;
     --accent-color-dark: #00aaff;
     --terminal-header-dark: #2a2a2a;
@@ -375,3 +375,4 @@ section { margin-bottom: 4rem; }
         overflow: hidden; 
     }
 }
+
