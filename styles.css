@@ -1,8 +1,9 @@
 :root {
-    --bg-color-light: #f5f5f5;
-    --text-color-light: #333;
-    --accent-color-light: #00aaff;
-    --terminal-header-light: #e0e0e0;
+    /* --- LIGHT MODE REWORK (The "Paper" Theme) --- */
+    --bg-color-light: #f0f2f5;   /* Slightly cooler grey/white to add depth */
+    --text-color-light: #111111; /* Absolute Black text for sharpness */
+    --accent-color-light: #0066cc; /* Darker "Link Blue" - Readable on white */
+    --terminal-header-light: #d1d5db; /* Darker grey header for definition */
     
     --bg-color-dark: #000000; /* Was #1a1a1a */
     --text-color-dark: #e0e0e0;
@@ -375,5 +376,6 @@ section { margin-bottom: 4rem; }
         overflow: hidden; 
     }
 }
+
 
 
