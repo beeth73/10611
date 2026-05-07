@@ -8,7 +8,12 @@
     
     <!-- Security: Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" 
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; connect-src 'self' https://*.goatcounter.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' https://gc.zgo.at https://mapmyvisitors.com; 
+               connect-src 'self' https://*.goatcounter.com; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data: https://mapmyvisitors.com;
+               frame-src 'none';">
 
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
