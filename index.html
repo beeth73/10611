@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- lang="en" set on <html> for screen readers -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhushan Ladgaonkar</title>
@@ -20,7 +21,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="loader">
+    <!-- Skip link: first focusable element, jumps keyboard users past nav -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div id="loader" role="status" aria-live="polite" aria-label="Loading portfolio">
          <pre>
    ██████╗ ██╗  ██╗██╗   ██╗███████╗██╗  ██╗ █████╗ ███╗   ██╗
    ██╔══██╗██║  ██║██║   ██║██╔════╝██║  ██║██╔══██╗████╗  ██║
@@ -35,7 +39,7 @@
 
     <header class="unloaded">
         <div class="header-name"><span aria-hidden="true">~/</span>Bhushan_Ladgaonkar</div>
-        <nav>
+        <nav aria-label="Primary navigation">
             <a href="#about"><span aria-hidden="true">~/</span>about</a>
             <a href="#experience"><span aria-hidden="true">~/</span>experience</a>
             <a href="#skills"><span aria-hidden="true">~/</span>skills</a>
@@ -45,19 +49,20 @@
             -->
             <a href="#certifications"><span aria-hidden="true">~/</span>certs</a>
             <a href="#contact"><span aria-hidden="true">~/</span>contact</a>
-            <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" class="resume-link"><span aria-hidden="true">~/</span>resume.pdf</a>
+            <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" class="resume-link"
+               aria-label="Download resume PDF (opens in new tab)"><span aria-hidden="true">~/</span>resume.pdf</a>
         </nav>
         <div class="theme-switcher">
-            <label class="switch">
+            <label class="switch" aria-label="Toggle dark mode">
                 <input type="checkbox" id="theme-toggle">
                 <span class="slider round"></span>
             </label>
         </div>
     </header>
 
-    <main class="unloaded">
-        <div class="terminal-window">
-            <div class="terminal-header">
+    <main class="unloaded" id="main-content">
+        <div class="terminal-window" role="region" aria-label="Portfolio content">
+            <div class="terminal-header" aria-hidden="true">
                 <div class="terminal-buttons">
                     <span class="terminal-button red"></span>
                     <span class="terminal-button yellow"></span>
@@ -368,10 +373,10 @@
         </div>
     </main>
 
-    <div id="modal" class="modal-overlay">
+    <div id="modal" class="modal-overlay" aria-modal="true" aria-hidden="true" role="dialog" aria-labelledby="modal-title-id">
         <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h3 class="modal-title"></h3>
+            <button class="modal-close" aria-label="Close">&times;</button>
+            <h3 class="modal-title" id="modal-title-id"></h3>
             <p class="modal-description"></p>
             <img src="" alt="" class="modal-image">
         </div>
@@ -384,6 +389,46 @@
              width="1" height="1" alt="">
         </a>
     </div>
+
+    <!-- ==================== FOOTER BAR ==================== -->
+    <footer id="site-footer" aria-label="Status bar">
+
+        <!-- Quote — rotates every 8s via script.js -->
+        <div id="footer-quote"
+             role="status"
+             aria-live="polite"
+             aria-atomic="true"
+             aria-label="Rotating quote">
+            <!-- Populated by script.js -->
+        </div>
+
+        <!-- Dual clock -->
+        <div id="footer-clock" aria-label="World clocks">
+
+            <!-- Visitor's local time -->
+            <div class="clock-block">
+                <span class="clock-label">you</span>
+                <span class="clock-time" id="clock-user-time" aria-live="off">--:--:--</span>
+            </div>
+
+            <span class="clock-divider" aria-hidden="true">|</span>
+
+            <!-- Delta between timezones -->
+            <div class="clock-delta">
+                <span class="clock-label">Δ</span>
+                <span class="clock-time" id="clock-delta" aria-live="off">…</span>
+            </div>
+
+            <span class="clock-divider" aria-hidden="true">|</span>
+
+            <!-- My time (IST by default — change MY_TIMEZONE in script.js) -->
+            <div class="clock-block">
+                <span class="clock-label" id="my-clock-label">BHU / IST</span>
+                <span class="clock-time" id="clock-my-time" aria-live="off">--:--:--</span>
+            </div>
+
+        </div>
+    </footer>
 
     <script src="script.js"></script>
     <script data-goatcounter="https://beeth.goatcounter.com/count" async src="//gc.zgo.at/count.js" defer></script>
