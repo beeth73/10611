@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhushan Ladgaonkar</title>
+    <meta name="description" content="Bhushan Ladgaonkar — Computer Engineering student specializing in AI Systems, Adversarial ML, and Offensive Security. ONGC intern, published researcher, and builder of local-first AI systems.">
     <link rel="icon" href="images/B.png" type="image/png" />
     
     <!-- Security: Content Security Policy -->
@@ -35,11 +36,13 @@
     <header class="unloaded">
         <div class="header-name"><span aria-hidden="true">~/</span>Bhushan_Ladgaonkar</div>
         <nav>
-            <!-- Accessibility Fix: Screen readers will skip the "~/" -->
             <a href="#about"><span aria-hidden="true">~/</span>about</a>
             <a href="#experience"><span aria-hidden="true">~/</span>experience</a>
             <a href="#skills"><span aria-hidden="true">~/</span>skills</a>
             <a href="#projects"><span aria-hidden="true">~/</span>projects</a>
+            <!-- Uncomment when paper is live on May 25:
+            <a href="#publications"><span aria-hidden="true">~/</span>publications</a>
+            -->
             <a href="#certifications"><span aria-hidden="true">~/</span>certs</a>
             <a href="#contact"><span aria-hidden="true">~/</span>contact</a>
             <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" class="resume-link"><span aria-hidden="true">~/</span>resume.pdf</a>
@@ -63,95 +66,205 @@
                 <span>zsh - 80x24</span>
             </div>
             <div class="terminal-body">
-                
+
+                <!-- ==================== ABOUT ==================== -->
                 <section id="about">
                     <h2><span aria-hidden="true">~/</span>about</h2>
-                    <p>Hi, I'm <strong>Bhushan Nandita Anand Ladgaonkar</strong>. I am a Computer Engineering student at Fr. Conceição Rodrigues College focused on offensive security operations and machine learning. I independently pursue advanced knowledge from sources like CS50 and pwn.college to deepen my expertise, with the goal of creating robust, secure digital experiences.</p>
+                    <p>Hi, I'm <strong>Bhushan Ladgaonkar</strong>. I am a Computer Engineering
+                    student at Fr. Conceição Rodrigues College focused on offensive security
+                    operations and machine learning. I independently pursue advanced knowledge
+                    from sources like CS50 and pwn.college to deepen my expertise, with the
+                    goal of creating robust, secure digital experiences.</p>
                 </section>
 
+                <!-- ==================== EXPERIENCE ==================== -->
                 <section id="experience">
                     <h2><span aria-hidden="true">~/</span>experience</h2>
+
+                    <!-- ONGC -->
                     <div class="project-item">
+                        <img src="images/Certificate_of_Completion_Internship_at_ONGC.png"
+                             alt="ONGC Internship Completion Certificate"
+                             class="project-item-image">
                         <div class="project-item-content">
-                            <h3>Internship @ ONGC</h3>
-                            <p class="role-date">Summer Intern | Database Group (WOB)</p> 
-                            <p>Developed an ML-based Network Intrusion Detection System (NIDS) to address the limitations of static signature-based security. Engineered a data pipeline processing the UNSW-NB15 dataset (2M+ records) and optimized detection models (RandomForest, XGBoost) using SMOTE to handle class imbalance. Analyzed zero-day attack patterns under the guidance of the Database Programming division.</p>
+                            <h3>Oil and Natural Gas Corporation (ONGC)</h3>
+                            <p class="role-date">Summer Intern | Database &amp; Security Group &middot; May 2025 – June 2025</p>
+                            <p>Developed an ML-based Network Intrusion Detection System (NIDS)
+                            to address the limitations of static signature-based security.
+                            Engineered a data pipeline processing the UNSW-NB15 dataset
+                            (2M+ records) and optimized detection models (RandomForest, XGBoost)
+                            using SMOTE to handle class imbalance. Analyzed zero-day attack
+                            patterns under the guidance of the Database Programming division.</p>
                             <div class="project-tags">
                                 <span>Network Security</span>
                                 <span>Machine Learning</span>
-                                <span>Traffic Analysis</span> 
+                                <span>RandomForest</span>
+                                <span>XGBoost</span>
+                                <span>SMOTE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IIC -->
+                    <div class="project-item">
+                        <div class="project-item-content">
+                            <h3>Institution's Innovation Council (IIC) — FRCRCE</h3>
+                            <p class="role-date">IPR Activities Coordinator &middot; Apr 2026 – Present</p>
+                            <p>Coordinating IPR, patent filing, and research commercialization
+                            initiatives to foster an innovation ecosystem among engineering
+                            students.</p>
+                            <div class="project-tags">
+                                <span>IPR</span>
+                                <span>Patent Filing</span>
+                                <span>Research Commercialization</span>
                             </div>
                         </div>
                     </div>
                 </section>
 
+                <!-- ==================== SKILLS ==================== -->
                 <section id="skills">
                     <h2><span aria-hidden="true">~/</span>skills</h2>
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <h3>> Languages</h3>
+                            <h3>&gt; Languages</h3>
                             <ul>
                                 <li>Python</li>
+                                <li>JavaScript / TypeScript</li>
                                 <li>C / C++</li>
                                 <li>Java</li>
                                 <li>SQL</li>
                             </ul>
                         </div>
                         <div class="skill-category">
-                            <h3>> Security</h3>
+                            <h3>&gt; Security</h3>
                             <ul>
                                 <li>Kali Linux</li>
                                 <li>Burp Suite</li>
-                                <li>OSINT</li>
+                                <li>OSINT &amp; Recon</li>
                                 <li>Cyber Kill Chain</li>
-                                <li>Recon & Enumeration</li>
+                                <li>pwn.college</li>
+                                <li>CVE Analysis</li>
                             </ul>
                         </div>
                         <div class="skill-category">
-                            <h3>> Data & ML</h3>
+                            <h3>&gt; AI &amp; ML</h3>
                             <ul>
-                                <li>Pandas</li>
-                                <li>NumPy</li>
-                                <li>Scikit-learn</li>
-                                <li>Machine Learning</li>
+                                <li>PyTorch</li>
+                                <li>MLX (Apple Silicon)</li>
+                                <li>Scikit-learn / XGBoost</li>
+                                <li>RAG Pipelines</li>
+                                <li>ChromaDB</li>
+                                <li>Adversarial ML</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h3>&gt; Web &amp; Backend</h3>
+                            <ul>
+                                <li>React 19</li>
+                                <li>Node.js / Express</li>
+                                <li>FastAPI</li>
+                                <li>MongoDB</li>
+                                <li>WebSockets / SSE</li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
+                <!-- ==================== PROJECTS ==================== -->
                 <section id="projects">
                     <h2><span aria-hidden="true">~/</span>projects</h2>
-                    
-                    <!-- MendikotZero (Pinned First) -->
+
+                    <!-- TISD-Edu-AI -->
+                    <div class="project-item">
+                        <!-- Uncomment when screenshot is ready:
+                        <img src="images/tisd_preview.png" alt="TISD-Edu-AI RAG pipeline diagram" class="project-item-image">
+                        -->
+                        <div class="project-item-content">
+                            <h3>TISD-Edu-AI: Local-First RAG Tutor</h3>
+                            <p>Privacy-first, on-device AI tutor for Grade 1–10 students built
+                            for Apple Silicon M4. Ingested 4,656 pages of NCERT and encyclopedia
+                            content into 6,422 semantic chunks across a 2.4M-point vector space
+                            (6422 &times; 384 dimensions). The Phi-3 (3.8B) inference pipeline
+                            achieves 41.42 tokens/sec at 1.72s latency with a 9.99GB memory
+                            footprint — zero data leaves the device.</p>
+                            <div class="project-tags">
+                                <span>Python</span>
+                                <span>MLX</span>
+                                <span>ChromaDB</span>
+                                <span>FastAPI</span>
+                                <span>RAG</span>
+                                <span>Apple Silicon</span>
+                            </div>
+                            <a href="https://github.com/beeth73/TISD-Edu-AI" class="project-link" target="_blank">View on GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- gemma-m4-agent -->
+                    <div class="project-item">
+                        <!-- Uncomment when screenshot is ready:
+                        <img src="images/gemma_agent_preview.png" alt="gemma-m4-agent AMOLED interface" class="project-item-image">
+                        -->
+                        <div class="project-item-content">
+                            <h3>gemma-m4-agent: Production Local AI Agent</h3>
+                            <p>Production-grade local AI agent implementing Hybrid-Memory
+                            Orchestration (HMO) on Apple M4 — 16GB Unified RAM for inference,
+                            external APFS drive for long-term vector memory and session state.
+                            Runs Gemma 4 8B (8-bit quantized) via MLX with real-time SSE token
+                            streaming and DuckDuckGo-grounded web search. Solved LLM hallucinated
+                            turn-leakage via dual-gate stop logic: silicon-level token ID
+                            injection + software-level rolling string-match guard.</p>
+                            <div class="project-tags">
+                                <span>Python</span>
+                                <span>MLX</span>
+                                <span>Gemma 4 8B</span>
+                                <span>React</span>
+                                <span>FastAPI</span>
+                                <span>SSE Streaming</span>
+                            </div>
+                            <a href="https://github.com/beeth73/gemma-m4-agent" class="project-link" target="_blank">View on GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- MendikotZero -->
                     <div class="project-item">
                         <img src="images/mendikot_paper_preview.png" alt="MendikotZero Architecture Diagram" class="project-item-image">
                         <div class="project-item-content">
                             <h3>MendikotZero: AlphaZero RL Agent</h3>
-                            <p>Engineered an autonomous AI agent for the Indian card game 'Mendikot' using Deep Reinforcement Learning. Implemented the <strong>AlphaZero architecture</strong> from scratch, utilizing Monte Carlo Tree Search (MCTS) guided by a Dual-Head Neural Network. The agent was trained via self-play without human data, evolving from random moves to advanced strategic planning.</p>
+                            <p>Engineered an autonomous AI agent for the Indian card game
+                            'Mendikot' using Deep Reinforcement Learning. Implemented the
+                            <strong>AlphaZero architecture</strong> from scratch, utilizing
+                            Monte Carlo Tree Search (MCTS) guided by a Dual-Head Neural Network.
+                            The agent was trained via self-play without human data, evolving
+                            from random moves to advanced strategic planning.</p>
                             <div class="project-tags">
                                 <span>Python</span>
                                 <span>PyTorch</span>
                                 <span>Reinforcement Learning</span>
                                 <span>MCTS</span>
                             </div>
-                            <a href="https://github.com/beeth73/Mendikot_ai_project" class="project-link" target="_blank">View Code & Paper</a>
+                            <a href="https://github.com/beeth73/Mendikot_ai_project" class="project-link" target="_blank">View Code &amp; Paper</a>
                         </div>
                     </div>
 
                     <!-- CS50 Cybersecurity -->
                     <div class="project-item">
-                        <img src="images/CS50cy_final.png" alt="CS50 Introduction to Cybersecurity: Final Project ; Anatomy of a Critical Failure CVE-2025-61882" class="project-item-image">
+                        <img src="images/CS50cy_final.png" alt="CS50 Cybersecurity Final Project — CVE-2025-61882" class="project-item-image">
                         <div class="project-item-content">
-                            <h3>CS50 Introduction to Cybersecurity: Final Project</h3>
-                            <h3>Anatomy of a Critical Failure : CVE-2025-61882</h3>
-                            <p>CS50 Cybersecurity Capstone: Conducted a technical forensic analysis of a critical (CVSS 9.8) Path Traversal vulnerability in Oracle Agile PLM. Deconstructed the input validation failure and proposed defense-in-depth remediation strategies including Path Canonicalization and Least Privilege architecture.</p>
+                            <h3>CS50 Cybersecurity: Anatomy of a Critical Failure</h3>
+                            <h3>CVE-2025-61882 — Oracle Agile PLM (CVSS 9.8)</h3>
+                            <p>Technical forensic analysis of a critical Path Traversal
+                            vulnerability in Oracle Agile PLM. Deconstructed the input
+                            validation failure and proposed defense-in-depth remediation
+                            strategies including Path Canonicalization and Least Privilege
+                            architecture.</p>
                             <div class="project-tags">
                                 <span>Vulnerability Research</span>
                                 <span>Supply Chain Security</span>
                                 <span>AppSec</span>
                                 <span>CVE Analysis</span>
                             </div>
-                           <a href="https://www.youtube.com/watch?v=6U-Qj91Took" class="project-link" target="_blank">Watch Analysis</a>
+                            <a href="https://www.youtube.com/watch?v=6U-Qj91Took" class="project-link" target="_blank">Watch Analysis</a>
                         </div>
                     </div>
 
@@ -159,53 +272,98 @@
                     <div class="project-item">
                         <img src="images/NIDS.png" alt="Network Intrusion Detection System Metrics" class="project-item-image">
                         <div class="project-item-content">
-                            <h3>Network Intrusion Detection System</h3>
-                            <p>Developed a high-performance NIDS using machine learning to detect novel and zero-day attacks. Executed a full data science workflow on the UNSW-NB15 dataset. The final Random Forest model (with SMOTE) achieved an excellent balance between high detection rates and low false positives.</p>
+                            <h3>Network Intrusion Detection System (NIDS)</h3>
+                            <p>Developed a high-performance NIDS using machine learning to
+                            detect novel and zero-day attacks. Executed a full data science
+                            workflow on the UNSW-NB15 dataset (2M+ records). The final Random
+                            Forest model (with SMOTE) achieved an excellent balance between
+                            high detection rates and low false positives.</p>
                             <div class="project-tags">
                                 <span>Python</span>
-                                <span>Machine Learning</span>
                                 <span>Scikit-learn</span>
+                                <span>XGBoost</span>
+                                <span>SMOTE</span>
                             </div>
                             <a href="https://github.com/beeth73/Summer_Internship_NIDS" class="project-link" target="_blank">View on GitHub</a>
                         </div>
                     </div>
                 </section>
 
+                <!-- ==================== PUBLICATIONS (commented out — uncomment May 25) ==================== -->
+                <!--
+                <section id="publications">
+                    <h2><span aria-hidden="true">~/</span>publications</h2>
+
+                    <div class="project-item">
+                        <div class="project-item-content">
+                            <h3>Benchmarking Resilience: Asymmetric Latent Purification Against Iterative Adversarial Attacks</h3>
+                            <p class="role-date">
+                                First &amp; Corresponding Author &middot;
+                                International Journal of Research and Innovation in Applied Science &middot;
+                                May 2026
+                            </p>
+                            <p>Engineered the Asymmetric Latent Purifier (ALP), a zero-shot
+                            structural defense against iterative PGD attacks utilizing an
+                            ultra-compact 64-channel stochastic bottleneck and a ResNet-Lite
+                            backbone. Implemented a 20-sample Monte Carlo Ensemble on Apple M4,
+                            recovering CIFAR-10 classification accuracy to 32.06% (25.68 dB PSNR)
+                            under severe adversarial threat.</p>
+                            <div class="project-tags">
+                                <span>Adversarial AI</span>
+                                <span>Computer Vision</span>
+                                <span>PyTorch</span>
+                                <span>ResNet</span>
+                                <span>CIFAR-10</span>
+                                <span>PGD Attacks</span>
+                            </div>
+                            <a href="REPLACE_WITH_DOI_OR_JOURNAL_LINK" class="project-link" target="_blank">Read Paper</a>
+                        </div>
+                    </div>
+                </section>
+                -->
+
+                <!-- ==================== CERTIFICATIONS ==================== -->
                 <section id="certifications">
                     <h2><span aria-hidden="true">~/</span>certifications</h2>
                     <div class="certificate-grid">
                         <div class="certificate-card">
-                            <img src="images/CS50_Cybersecurity.png" alt="CS50 Cybersecurity Certificate" data-description="Harvard University's intensive coursework covering Systems Security (Buffer Overflows), Web Security (SQLi, XSS), and Cryptography. Capstone: Technical forensic analysis of CVE-2025-61882 (Supply Chain Vulnerability).">
+                            <img src="images/CS50_Cybersecurity.png" alt="CS50 Cybersecurity Certificate"
+                                 data-description="Harvard University's intensive coursework covering Systems Security (Buffer Overflows), Web Security (SQLi, XSS), and Cryptography. Capstone: Technical forensic analysis of CVE-2025-61882 (Supply Chain Vulnerability).">
                             <p class="certificate-title">CS50 Cybersecurity (Harvard)</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chain" data-description="Expertise in identifying and mitigating the stages of a cyber attack, from reconnaissance to data exfiltration.">
+                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chain"
+                                 data-description="Expertise in identifying and mitigating the stages of a cyber attack, from reconnaissance to data exfiltration.">
                             <p class="certificate-title">Cyber Kill Chain</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/OSINT.jpeg" alt="OSINT" data-description="Validates skills in gathering and analyzing Open-Source Intelligence from publicly available sources.">
+                            <img src="images/OSINT.jpeg" alt="OSINT"
+                                 data-description="Validates skills in gathering and analyzing Open-Source Intelligence from publicly available sources.">
                             <p class="certificate-title">OSINT</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Offensive_Security_Operations.png" alt="Offensive Security Ops" data-description="Proficiency in ethical hacking engagements, penetration testing, and vulnerability assessment.">
+                            <img src="images/Offensive_Security_Operations.png" alt="Offensive Security Ops"
+                                 data-description="Proficiency in ethical hacking engagements, penetration testing, and vulnerability assessment.">
                             <p class="certificate-title">Offensive Security Ops</p>
                         </div>
                         <div class="certificate-card">
-                            <!-- NOTE: Filename has typos, but keeping src same to ensure load -->
-                            <img src="images/Reconnaissance_Enumeration_Basics.jpeg" alt="Reconnaissance & Enumeration Basics" data-description="Foundational knowledge in network discovery, port scanning, and service enumeration.">
-                             <p class="certificate-title">Recon & Enumeration</p>
+                            <img src="images/Reconnaissance_Enumeration_Basics.jpeg" alt="Reconnaissance & Enumeration Basics"
+                                 data-description="Foundational knowledge in network discovery, port scanning, and service enumeration.">
+                            <p class="certificate-title">Recon &amp; Enumeration</p>
                         </div>
                     </div>
                 </section>
 
+                <!-- ==================== CONTACT ==================== -->
                 <section id="contact">
                     <h2><span aria-hidden="true">~/</span>contact</h2>
                     <div class="social-links">
-                         <a href="https://github.com/beeth73" target="_blank">GitHub</a>
-                         <a href="https://www.linkedin.com/in/bhushan-ladgaonkar/" target="_blank">LinkedIn</a>
-                         <a href="mailto:bhushanladgaonkar@gmail.com">Email</a>
+                        <a href="https://github.com/beeth73" target="_blank">GitHub</a>
+                        <a href="https://www.linkedin.com/in/bhushan-ladgaonkar/" target="_blank">LinkedIn</a>
+                        <a href="mailto:bhushanladgaonkar@gmail.com">Email</a>
                     </div>
                 </section>
+
             </div>
         </div>
     </main>
@@ -222,20 +380,14 @@
     <!-- Visit tracker: hidden 1x1, won't affect layout -->
     <div style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;" aria-hidden="true">
         <a href="https://mapmyvisitors.com/web/1c41p" title="Visit tracker" tabindex="-1">
-            <img src="https://mapmyvisitors.com/map.png?cl=fff423&w=a&t=tt&d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&co=000000&ct=ffffff" 
+            <img src="https://mapmyvisitors.com/map.png?cl=fff423&w=a&t=tt&d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&co=000000&ct=ffffff"
              width="1" height="1" alt="">
         </a>
     </div>
 
     <script src="script.js"></script>
-    <!-- Privacy-friendly analytics (Deferred for performance) -->
     <script data-goatcounter="https://beeth.goatcounter.com/count" async src="//gc.zgo.at/count.js" defer></script>
     <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=lZFCRDGquvXuX0oFaahg2Ri_mxTUKV2a6X-YtghHOG0"></script>
     <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&cl=ffffff&w=a"></script>
 </body>
 </html>
-
-
-
-
-
