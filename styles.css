@@ -1,36 +1,60 @@
-:root {
-    /* --- LIGHT MODE REWORK (The "Paper" Theme) --- */
-    --bg-color-light: #f0f2f5;   /* Slightly cooler grey/white to add depth */
-    --text-color-light: #111111; /* Absolute Black text for sharpness */
-    --accent-color-light: #0066cc; /* Darker "Link Blue" - Readable on white */
-    --terminal-header-light: #d1d5db; /* Darker grey header for definition */
-    
-    --bg-color-dark: #000000; /* Was #1a1a1a */
-    --text-color-dark: #e0e0e0;
-    --accent-color-dark: #00aaff;
-    --terminal-header-dark: #121212; /* Was #2a2a2a */
+/* ============================================================
+   BHUSHAN LADGAONKAR — styles.css
+   Sections:
+   1. CSS Variables & Theming
+   2. Reset & Base
+   3. Accessibility
+   4. Loader
+   5. Animations
+   6. Header & Nav
+   7. Theme Switch
+   8. Terminal UI
+   9. Skills Grid
+   10. Projects & Experience
+   11. Publications Badge
+   12. Certificates
+   13. Contact
+   14. Modal
+   15. Footer Bar (Quotes + Clock)
+   16. Responsive / Mobile
+   ============================================================ */
 
-    --bg-color: var(--bg-color-light);
-    --text-color: var(--text-color-light); 
-    --accent-color: var(--accent-color-light);
-    --terminal-header-color: var(--terminal-header-light);
+
+/* ── 1. CSS VARIABLES & THEMING ─────────────────────────────── */
+:root {
+    --bg-color-light:       #f0f2f5;
+    --text-color-light:     #111111;
+    --accent-color-light:   #0066cc;
+    --terminal-header-light:#d1d5db;
+
+    --bg-color-dark:        #000000;
+    --text-color-dark:      #e0e0e0;
+    --accent-color-dark:    #00aaff;
+    --terminal-header-dark: #121212;
+
+    --bg-color:             var(--bg-color-light);
+    --text-color:           var(--text-color-light);
+    --accent-color:         var(--accent-color-light);
+    --terminal-header-color:var(--terminal-header-light);
+
+    /* Footer height — referenced in main padding so nothing hides behind it */
+    --footer-height: 3rem;
 }
 
 body.dark-mode {
-    --bg-color: var(--bg-color-dark);
-    --text-color: var(--text-color-dark);
-    --accent-color: var(--accent-color-dark);
-    --terminal-header-color: var(--terminal-header-dark);
+    --bg-color:             var(--bg-color-dark);
+    --text-color:           var(--text-color-dark);
+    --accent-color:         var(--accent-color-dark);
+    --terminal-header-color:var(--terminal-header-dark);
 }
 
+
+/* ── 2. RESET & BASE ─────────────────────────────────────────── */
 html {
     scroll-behavior: smooth;
     box-sizing: border-box;
 }
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
+*, *::before, *::after { box-sizing: inherit; }
 
 body {
     background-color: var(--bg-color);
@@ -38,35 +62,75 @@ body {
     font-family: 'Fira Code', monospace;
     margin: 0;
     padding: 0;
+    /* bottom padding so content never hides behind the fixed footer */
+    padding-bottom: var(--footer-height);
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 1.05em; 
+    font-size: 1.05em;
 }
 
-/* --- ACCESSIBILITY (Focus Ring) --- */
+
+/* ── 3. ACCESSIBILITY ────────────────────────────────────────── */
+
+/* Visible focus ring for keyboard users */
 :focus-visible {
     outline: 2px solid var(--accent-color);
     outline-offset: 4px;
     border-radius: 2px;
 }
 
-/* --- LOADER --- */
+/* Skip-to-main link (visually hidden until focused) */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0 0 4px 4px;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 9999;
+    transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* Reduced-motion: disable all transitions / animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+
+/* ── 4. LOADER ───────────────────────────────────────────────── */
 #loader {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: var(--bg-color);
     z-index: 200;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
     transition: opacity 0.5s ease;
     color: var(--accent-color);
 }
-#loader pre { font-size: 1.05rem; }
+#loader pre {
+    font-size: 1.05rem;
+    line-height: 1.2;
+    margin: 0;
+}
+#loader-status {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+}
 
-/* --- ANIMATIONS --- */
+
+/* ── 5. ANIMATIONS ───────────────────────────────────────────── */
 header.unloaded, main.unloaded {
     opacity: 0;
     transform: translateY(20px);
@@ -77,7 +141,8 @@ header, main {
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* --- HEADER --- */
+
+/* ── 6. HEADER & NAV ─────────────────────────────────────────── */
 header {
     display: flex;
     justify-content: space-between;
@@ -86,17 +151,20 @@ header {
 }
 
 .header-name {
-    font-family: 'Fira Code', monospace;
     font-weight: bold;
     font-size: 1.4em;
     color: var(--accent-color);
+    white-space: nowrap;
 }
+
+nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem; }
 
 nav a {
     color: var(--text-color);
     text-decoration: none;
     margin-left: 1.5rem;
     transition: color 0.3s ease;
+    white-space: nowrap;
 }
 nav a:hover { color: var(--accent-color); }
 
@@ -108,46 +176,63 @@ nav a:hover { color: var(--accent-color); }
     margin-left: 1.5rem;
     transition: all 0.3s ease;
 }
-
 .resume-link:hover {
     background-color: var(--accent-color);
     color: var(--bg-color) !important;
 }
 
-/* --- THEME SWITCH --- */
+
+/* ── 7. THEME SWITCH ─────────────────────────────────────────── */
 .theme-switcher {
     position: relative;
     display: inline-block;
-    width: 52px; height: 26px;
+    width: 52px;
+    height: 26px;
+    flex-shrink: 0;
 }
-.switch input { display:none; }
+.switch input { display: none; }
+
 .slider {
     position: absolute;
     cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
+    inset: 0;
     background-color: #ccc;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 26px;
 }
-.slider:before {
+.slider::before {
     position: absolute;
     content: "";
-    height: 18px; width: 18px;
-    left: 4px; bottom: 4px;
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
     background-color: white;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 50%;
 }
 input:checked + .slider { background-color: var(--accent-color); }
-input:checked + .slider:before { transform: translateX(26px); }
+input:checked + .slider::before { transform: translateX(26px); }
 
-/* --- TERMINAL UI --- */
+/* Accessible label for screen readers */
+.theme-switcher-label {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ── 8. TERMINAL UI ──────────────────────────────────────────── */
 main { padding: 2.1rem 5%; }
 
 .terminal-window {
     border: 1px solid var(--text-color);
     border-radius: 8px;
-    max-width: 1000px; /* Reduced width slightly for better reading */
+    max-width: 1000px;
     margin: 2rem auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     background-color: var(--bg-color);
@@ -156,33 +241,38 @@ main { padding: 2.1rem 5%; }
 .terminal-header {
     background-color: var(--terminal-header-color);
     padding: 0.5rem;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-radius: 7px 7px 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    user-select: none;
 }
 
 .terminal-buttons {
     position: absolute;
-    left: 10px; top: 50%;
+    left: 10px;
+    top: 50%;
     transform: translateY(-50%);
+    display: flex;
+    gap: 6px;
 }
+/* Each button has aria-hidden in HTML — purely decorative */
 .terminal-button {
-    height: 12px; width: 12px;
+    height: 12px;
+    width: 12px;
     border-radius: 50%;
     display: inline-block;
-    margin-right: 6px;
 }
-.red { background-color: #ff5f56; }
-.yellow { background-color: #ffbd2e; }
-.green { background-color: #27c93f; }
+.terminal-button.red    { background-color: #ff5f56; }
+.terminal-button.yellow { background-color: #ffbd2e; }
+.terminal-button.green  { background-color: #27c93f; }
 
+/* ── KEY FIX: remove fixed height + overflow — no nested scroll ── */
 .terminal-body {
     padding: 2.5rem;
-    height: 70vh;
-    overflow-y: auto;
+    /* height: 70vh  ← removed; content flows naturally */
+    /* overflow-y: auto ← removed */
 }
 
 .terminal-body h2 {
@@ -196,10 +286,11 @@ main { padding: 2.1rem 5%; }
 
 section { margin-bottom: 4rem; }
 
-/* --- SKILLS GRID --- */
+
+/* ── 9. SKILLS GRID ──────────────────────────────────────────── */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 2rem;
 }
 .skill-category h3 {
@@ -211,16 +302,16 @@ section { margin-bottom: 4rem; }
 .skill-category ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
-.skill-category li {
-    padding: 0.3rem 0;
-}
+.skill-category li { padding: 0.3rem 0; }
 .skill-category li::before {
     content: "• ";
     color: var(--accent-color);
 }
 
-/* --- PROJECTS & EXPERIENCE --- */
+
+/* ── 10. PROJECTS & EXPERIENCE ───────────────────────────────── */
 .project-item {
     display: flex;
     gap: 1.5rem;
@@ -228,28 +319,32 @@ section { margin-bottom: 4rem; }
     background-color: var(--terminal-header-color);
     padding: 1.5rem;
     border-radius: 8px;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease;
 }
-.project-item:hover {
-    transform: translateX(5px);
-}
+.project-item:hover { transform: translateX(5px); }
+
 .project-item-image {
     width: 200px;
     height: 140px;
     object-fit: cover;
     border-radius: 4px;
+    flex-shrink: 0;
 }
-.project-item-content { flex: 1; }
+
+.project-item-content { flex: 1; min-width: 0; }
+
 .project-item-content h3 {
     color: var(--accent-color);
     margin: 0 0 0.5rem 0;
 }
+
 .role-date {
     font-size: 0.9em;
     font-style: italic;
     margin-bottom: 1rem;
     opacity: 0.8;
 }
+
 .project-tags { margin: 1rem 0; }
 .project-tags span {
     display: inline-block;
@@ -261,22 +356,37 @@ section { margin-bottom: 4rem; }
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
 .project-link {
     display: inline-block;
     background-color: var(--accent-color);
-    color: var(--bg-color); /* Contrast fix */
+    color: var(--bg-color);
     padding: 0.5rem 1rem;
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
+    transition: opacity 0.2s;
 }
-.project-link:hover { opacity: 0.9; }
+.project-link:hover { opacity: 0.85; }
 
-/* --- CERTIFICATES --- */
+
+/* ── 11. PUBLICATION BADGE ───────────────────────────────────── */
+.publication-badge {
+    display: inline-block;
+    border: 1px dashed var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+}
+
+
+/* ── 12. CERTIFICATES ────────────────────────────────────────── */
 .certificate-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
 }
 .certificate-card {
@@ -286,9 +396,10 @@ section { margin-bottom: 4rem; }
     cursor: pointer;
     background-color: var(--terminal-header-color);
     text-align: center;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
-.certificate-card:hover {
+.certificate-card:hover,
+.certificate-card:focus-within {
     transform: translateY(-5px);
     border-color: var(--accent-color);
 }
@@ -298,10 +409,12 @@ section { margin-bottom: 4rem; }
     object-fit: cover;
     border-radius: 4px;
     margin-bottom: 1rem;
+    pointer-events: none; /* clicks handled on card */
 }
 .certificate-title { font-size: 0.9rem; margin: 0; }
 
-/* --- CONTACT --- */
+
+/* ── 13. CONTACT ─────────────────────────────────────────────── */
 .social-links { margin-top: 1rem; }
 .social-links a {
     color: var(--text-color);
@@ -309,19 +422,20 @@ section { margin-bottom: 4rem; }
     margin-right: 1.5rem;
     font-size: 1.1rem;
     border-bottom: 1px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 .social-links a:hover {
     color: var(--accent-color);
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom-color: var(--accent-color);
 }
 
-/* --- MODAL --- */
+
+/* ── 14. MODAL ───────────────────────────────────────────────── */
 .modal-overlay {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
+    inset: 0;
     background-color: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
@@ -333,49 +447,154 @@ section { margin-bottom: 4rem; }
     color: var(--text-color);
     padding: 2rem;
     border: 1px solid var(--accent-color);
-    width: 90%; max-width: 600px;
+    width: 90%;
+    max-width: 600px;
     border-radius: 8px;
     position: relative;
     text-align: center;
 }
 .modal-close {
     position: absolute;
-    top: 10px; right: 20px;
+    top: 10px;
+    right: 20px;
     font-size: 2rem;
     cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    line-height: 1;
 }
+.modal-close:hover { color: var(--accent-color); }
 .modal-image {
     max-width: 100%;
     margin-top: 1rem;
     border-radius: 4px;
 }
 
-/* --- RESPONSIVE / MOBILE --- */
+
+/* ── 15. FOOTER BAR (QUOTES + CLOCK) ────────────────────────── */
+#site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+    background-color: var(--terminal-header-color);
+    border-top: 1px solid rgba(128,128,128,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    gap: 1rem;
+    z-index: 100;
+    font-size: 0.78rem;
+    transition: background-color 0.3s ease;
+    /* Respect reduced-motion: quote fade will check this in JS */
+}
+
+/* Quote area — left side */
+#footer-quote {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--accent-color);
+    font-style: italic;
+    transition: opacity 0.6s ease;
+}
+#footer-quote.fading { opacity: 0; }
+
+/* Clock area — right side */
+#footer-clock {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-shrink: 0;
+    color: var(--text-color);
+    opacity: 0.85;
+    font-variant-numeric: tabular-nums; /* digits don't jitter */
+}
+
+.clock-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+}
+.clock-label {
+    font-size: 0.65rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+.clock-time {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    letter-spacing: 0.04em;
+}
+
+.clock-divider {
+    opacity: 0.3;
+    font-size: 1.2rem;
+    align-self: center;
+}
+
+.clock-delta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+}
+.clock-delta .clock-label { opacity: 0.5; }
+.clock-delta .clock-time {
+    font-size: 0.78rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-weight: normal;
+}
+
+
+/* ── 16. RESPONSIVE / MOBILE ─────────────────────────────────── */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 0.75rem;
+        padding-right: 4rem; /* space for theme toggle */
     }
+
     nav {
-        margin-top: 1rem;
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.5rem 0;
     }
     nav a { margin-left: 0; margin-right: 1rem; }
-    
+
     .project-item { flex-direction: column; }
     .project-item-image { width: 100%; height: auto; }
-    
-    .theme-switcher { position: absolute; top: 1rem; right: 1rem; }
-    
-    /* Shrink ASCII Art for Mobile to fit vertically/horizontally */
-    #loader pre {
-        font-size: 0.5rem; 
-        line-height: 0.6rem;
-        overflow: hidden; 
+
+    .theme-switcher {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
     }
+
+    #loader pre {
+        font-size: 0.45rem;
+        line-height: 0.6rem;
+        overflow: hidden;
+    }
+
+    /* On narrow screens, hide the quote; keep just the clock */
+    #footer-quote { display: none; }
+
+    #footer-clock { gap: 0.75rem; font-size: 0.72rem; }
+    .clock-time { font-size: 0.78rem; }
 }
 
-
-
+@media (max-width: 480px) {
+    .terminal-body { padding: 1.25rem; }
+    main { padding: 1rem 3%; }
+}
