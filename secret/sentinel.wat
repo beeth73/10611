@@ -1,0 +1,90 @@
+(module
+  (memory (export "memory") 1)
+
+  (data (i32.const 0)
+    "\0B\01\0C\0A\36\3A\25\7D\12\79\20\12\7C\12\2F\28\28\39\25\7A\7E\30")
+  (data (i32.const 26)
+    "\0B\01\0C\0A\36\3F\7D\7D\39\12\7D\2B\12\7C\39\12\2C\21\21\12\7C\7D\7B\7C\7C\30")
+  (data (i32.const 56)
+    "\0B\01\0C\0A\36\79\3D\3D\21\7E\12\3E\7C\21\7C\2E\7D\23\12\20\79\12\2C\3F\20\7B\79\30")
+  (data (i32.const 88)
+    "\0B\01\0C\0A\36\18\19\0E\12\3D\21\38\3E\12\78\12\7E\7D\12\04\1E\19\30")
+  (data (i32.const 115)
+    "\0B\01\0C\0A\36\39\25\7E\12\2B\7D\3F\2E\7E\12\7C\3E\12\3E\39\3F\7D\23\2A\30")
+  (data (i32.const 144)
+    "\0B\01\0C\0A\36\7E\23\2E\3F\34\3D\39\7C\7D\23\12\7C\3E\12\27\38\3E\39\12\7D\2F\2B\38\3E\2E\79\39\7C\7D\23\30")
+  (data (i32.const 184)
+    "\0B\01\0C\0A\36\28\23\3B\12\3B\79\3F\3E\12\23\7E\3B\7E\3F\12\21\7C\7E\30")
+  (data (i32.const 212)
+    "\0B\01\0C\0A\36\3D\3A\23\12\2E\7D\21\21\7E\2A\7E\12\7C\3E\12\39\25\7E\12\3A\79\34\30")
+
+  (func (export "verify") (param $flag_index i32) (result i32)
+    (local $stored_offset i32)
+    (local $stored_len   i32)
+    (local $i            i32)
+    (local $stored_byte  i32)
+    (local $input_byte   i32)
+
+    (block $done
+      (block $f7 (block $f6 (block $f5 (block $f4
+      (block $f3 (block $f2 (block $f1 (block $f0
+        (br_table $f0 $f1 $f2 $f3 $f4 $f5 $f6 $f7
+          (local.get $flag_index))
+      )
+        (local.set $stored_offset (i32.const 0))
+        (local.set $stored_len    (i32.const 22))
+        (br $done))
+        (local.set $stored_offset (i32.const 26))
+        (local.set $stored_len    (i32.const 26))
+        (br $done))
+        (local.set $stored_offset (i32.const 56))
+        (local.set $stored_len    (i32.const 28))
+        (br $done))
+        (local.set $stored_offset (i32.const 88))
+        (local.set $stored_len    (i32.const 23))
+        (br $done))
+        (local.set $stored_offset (i32.const 115))
+        (local.set $stored_len    (i32.const 25))
+        (br $done))
+        (local.set $stored_offset (i32.const 144))
+        (local.set $stored_len    (i32.const 36))
+        (br $done))
+        (local.set $stored_offset (i32.const 184))
+        (local.set $stored_len    (i32.const 24))
+        (br $done))
+        (local.set $stored_offset (i32.const 212))
+        (local.set $stored_len    (i32.const 28))
+    )
+
+    (local.set $i (i32.const 0))
+    (block $fail
+      (loop $check
+        (if (i32.ge_u (local.get $i) (local.get $stored_len))
+          (then (return (i32.const 1)))
+        )
+        (local.set $stored_byte
+          (i32.xor
+            (i32.load8_u
+              (i32.add (local.get $stored_offset) (local.get $i)))
+            (i32.const 0x4D)
+          )
+        )
+        (local.set $input_byte
+          (i32.load8_u
+            (i32.add (i32.const 512) (local.get $i)))
+        )
+        (if (i32.ne (local.get $stored_byte) (local.get $input_byte))
+          (then (br $fail))
+        )
+        (local.set $i (i32.add (local.get $i) (i32.const 1)))
+        (br $check)
+      )
+      (br $fail)
+    )
+    (i32.const 0)
+  )
+
+  (func (export "get_input_offset") (result i32)
+    (i32.const 512)
+  )
+)
