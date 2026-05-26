@@ -298,7 +298,60 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* ── 8. KEYBOARD ACCESSIBILITY FOR CERTIFICATE CARDS ─────── */
+    /* ── 8. DYNAMIC TERMINAL DIMENSIONS ──────────────────────── */
+    const terminalBody = document.querySelector(".terminal-body");
+    const dimensionsSpan = document.getElementById("terminal-dimensions");
+
+    function updateTerminalDimensions() {
+        if (!terminalBody || !dimensionsSpan) return;
+
+        // Get the computed style to account for padding, etc.
+        const rect = terminalBody.getBoundingClientRect();
+        const computedStyle = window.getComputedStyle(terminalBody);
+        const padding = parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+        const paddingY = parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+
+        // Create a temporary element to measure monospace character size
+        const test = document.createElement("span");
+        test.style.fontFamily = "'Fira Code', monospace";
+        test.style.fontSize = computedStyle.fontSize;
+        test.style.visibility = "hidden";
+        test.style.position = "absolute";
+        test.textContent = "M"; // Monospace 'M' is typically the widest character
+        document.body.appendChild(test);
+
+        const charWidth = test.getBoundingClientRect().width;
+        
+        // Handle lineHeight: if it's "normal", calculate from font-size
+        let charHeight = parseFloat(computedStyle.lineHeight);
+        if (isNaN(charHeight) || computedStyle.lineHeight === "normal") {
+            charHeight = parseFloat(computedStyle.fontSize) * 1.5; // standard 1.5x multiplier for "normal"
+        }
+        
+        document.body.removeChild(test);
+
+        // Calculate columns and rows
+        const width = rect.width - padding;
+        const height = rect.height - paddingY;
+        const cols = Math.floor(width / charWidth);
+        const rows = Math.floor(height / charHeight);
+
+        // Update display (ensure minimum reasonable values)
+        dimensionsSpan.textContent = `${Math.max(cols, 20)}x${Math.max(rows, 10)}`;
+    }
+
+    // Update on page load and whenever window resizes
+    updateTerminalDimensions();
+    window.addEventListener("resize", updateTerminalDimensions);
+
+    // Also use ResizeObserver for terminal-specific changes
+    if (window.ResizeObserver) {
+        const observer = new ResizeObserver(updateTerminalDimensions);
+        observer.observe(terminalBody);
+    }
+
+
+    /* ── 9. KEYBOARD ACCESSIBILITY FOR CERTIFICATE CARDS ─────── */
     // Cards need tabindex="0" to be reachable by keyboard.
     // We add it in JS (progressive enhancement) so it degrades
     // gracefully if JS is off.

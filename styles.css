@@ -227,15 +227,24 @@ input:checked + .slider::before { transform: translateX(26px); }
 
 
 /* ── 8. TERMINAL UI ──────────────────────────────────────────── */
-main { padding: 2.1rem 5%; }
+main { 
+    padding: 2.1rem 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--footer-height) - 4.2rem);
+}
 
 .terminal-window {
     border: 1px solid var(--text-color);
     border-radius: 8px;
-    max-width: 1000px;
-    margin: 2rem auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    max-width: 1400px;
+    width: 100%;
 }
 
 .terminal-header {
@@ -268,11 +277,18 @@ main { padding: 2.1rem 5%; }
 .terminal-button.yellow { background-color: #ffbd2e; }
 .terminal-button.green  { background-color: #27c93f; }
 
-/* ── KEY FIX: remove fixed height + overflow — no nested scroll ── */
+/* Dynamic terminal dimensions display */
+#terminal-dimensions {
+    font-weight: 700;
+    font-family: 'Fira Code', monospace;
+}
+
+/* ── KEY FIX: scrollable terminal body ── */
 .terminal-body {
     padding: 2.5rem;
-    /* height: 70vh  ← removed; content flows naturally */
-    /* overflow-y: auto ← removed */
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .terminal-body h2 {
