@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhushan Ladgaonkar — Resume</title>
+<meta name="description" content="Resume of Bhushan Ladgaonkar, Security Researcher and ML Engineer specializing in Adversarial AI.">
+
+<style>
+  /*
+    Fully self-contained stylesheet — no external stylesheets, fonts,
+    or scripts. All tokens are defined here. A [data-theme] attribute
+    on <html> (set by the inline script below) switches the palette;
+    prefers-color-scheme is used as the first-visit default.
+  */
+  :root{
+    --resume-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Consolas', 'DejaVu Sans Mono', Menlo, Monaco, monospace;
+    --sidebar-w: 300px;
+  }
+
+  /* Dark palette (default) */
+  html, html[data-theme="dark"]{
+    --resume-bg:      #0d1117;
+    --resume-surface: #161b22;
+    --resume-text:    #c9d1d9;
+    --resume-muted:   #8b949e;
+    --resume-accent:  #58a6ff;
+    --resume-border:  #30363d;
+    color-scheme: dark;
+  }
+
+  /* Light palette */
+  html[data-theme="light"]{
+    --resume-bg:      #fbfbfa;
+    --resume-surface: #f0f1f3;
+    --resume-text:    #1b1f24;
+    --resume-muted:   #57606a;
+    --resume-accent:  #0969da;
+    --resume-border:  #d0d7de;
+    color-scheme: light;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    font-family: var(--resume-mono);
+    background: var(--resume-bg);
+    color: var(--resume-text);
+    line-height: 1.6;
+  }
+
+  /* ---------- Skip link (a11y) ---------- */
+  .skip-link{
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 1000;
+    background: var(--resume-accent);
+    color: #04121f;
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 0 0 6px 0;
+  }
+  .skip-link:focus{
+    left: 0;
+  }
+
+  /* ---------- Top terminal bar ---------- */
+  .term-titlebar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1rem;
+    background: var(--resume-surface);
+    border-bottom: 1px solid var(--resume-border);
+    font-size: 0.8rem;
+    color: var(--resume-muted);
+  }
+  .term-dots{ display:flex; gap:6px; margin-right: 0.5rem; }
+  .term-dots span{
+    width: 11px; height: 11px; border-radius: 50%;
+    display:inline-block;
+  }
+  .term-dots span:nth-child(1){ background:#ff5f56; }
+  .term-dots span:nth-child(2){ background:#ffbd2e; }
+  .term-dots span:nth-child(3){ background:#27c93f; }
+  .term-path{ color: var(--resume-accent); }
+
+  #theme-toggle{
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--resume-border);
+    color: var(--resume-text);
+    font-family: inherit;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #theme-toggle:hover{ border-color: var(--resume-accent); color: var(--resume-accent); }
+
+  /* ---------- arXiv-style layout ---------- */
+  .layout{
+    display: grid;
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* ----- Sidebar / TOC ----- */
+  .toc-sidebar{
+    position: sticky;
+    top: 46px; /* below titlebar */
+    align-self: start;
+    height: calc(100vh - 46px);
+    overflow-y: auto;
+    padding: 1.75rem 1.25rem 2rem;
+    border-right: 1px solid var(--resume-border);
+    font-size: 0.85rem;
+  }
+  .toc-sidebar h2{
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--resume-muted);
+    margin: 0 0 0.75rem;
+  }
+  .toc-sidebar nav ol{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc-sidebar nav ol li{ margin-bottom: 0.35rem; }
+  .toc-sidebar nav ol ol{
+    margin: 0.3rem 0 0.5rem 0.2rem;
+    padding-left: 1rem;
+    border-left: 1px dashed var(--resume-border);
+  }
+  .toc-sidebar a{
+    display: block;
+    color: var(--resume-text);
+    text-decoration: none;
+    padding: 0.2rem 0.35rem;
+    border-radius: 4px;
+  }
+  .toc-sidebar a .num{
+    color: var(--resume-accent);
+    margin-right: 0.4em;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc-sidebar a:hover,
+  .toc-sidebar a:focus-visible{
+    background: var(--resume-surface);
+    color: var(--resume-accent);
+    outline: 2px solid var(--resume-accent);
+    outline-offset: 1px;
+  }
+  .toc-sidebar a[aria-current="true"]{
+    background: var(--resume-surface);
+    color: var(--resume-accent);
+    font-weight: 600;
+  }
+
+  .toc-footer{
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--resume-border);
+    font-size: 0.75rem;
+    color: var(--resume-muted);
+  }
+  .toc-footer a{ color: var(--resume-accent); }
+
+  /* ----- Main column ----- */
+  main{
+    padding: 2.25rem 2.5rem 4rem;
+    min-width: 0;
+  }
+
+  /* Paper header, arXiv style */
+  .paper-header{
+    border-bottom: 1px solid var(--resume-border);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .paper-id{
+    font-size: 0.75rem;
+    color: var(--resume-muted);
+    margin-bottom: 0.6rem;
+  }
+  .paper-title{
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+    color: var(--resume-text);
+  }
+  .paper-authors{
+    font-size: 0.95rem;
+    color: var(--resume-accent);
+    margin: 0 0 0.6rem;
+  }
+  .contact-line{
+    font-size: 0.85rem;
+    color: var(--resume-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+  }
+  .contact-line a{ color: var(--resume-text); text-decoration: none; border-bottom: 1px dotted var(--resume-border); }
+  .contact-line a:hover, .contact-line a:focus-visible{ color: var(--resume-accent); border-color: var(--resume-accent); }
+  .contact-line .sep{ color: var(--resume-border); }
+
+  /* Paper meta box */
+  .paper-meta{
+    margin-top: 1rem;
+    background: var(--resume-surface);
+    border: 1px solid var(--resume-border);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.6rem 1.5rem;
+  }
+  .paper-meta dt{
+    color: var(--resume-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.15rem;
+  }
+  .paper-meta dd{ margin: 0; color: var(--resume-text); }
+  .paper-meta a{ color: var(--resume-accent); }
+
+  /* Abstract */
+  .abstract{
+    margin: 1.75rem 0 2rem;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--resume-accent);
+    background: var(--resume-surface);
+    border-radius: 0 6px 6px 0;
+  }
+  .abstract h2{
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--resume-muted);
+  }
+  .abstract p{ margin: 0; font-size: 0.92rem; }
+
+  /* zsh-style section headers */
+  .section{
+    margin: 2.25rem 0;
+    scroll-margin-top: 60px;
+  }
+  .zsh-header{
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    margin: 0 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--resume-border);
+  }
+  .zsh-header .prompt{ color: var(--resume-accent); font-weight: 700; }
+  .zsh-header .sec-num{ color: var(--resume-muted); font-size: 0.85rem; }
+  .zsh-header .path{ color: var(--resume-text); font-weight: 600; }
+
+  .subsection{ margin: 1.25rem 0 1.5rem; }
+  .subsection h3{
+    font-size: 0.95rem;
+    margin: 0 0 0.15rem;
+    color: var(--resume-text);
+  }
+  .subsection .role-meta{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.3rem 1rem;
+    font-size: 0.82rem;
+    color: var(--resume-muted);
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+  .subsection ul{
+    margin: 0.4rem 0 0;
+    padding-left: 1.2rem;
+  }
+  .subsection li{
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  .subsection a{ color: var(--resume-accent); }
+
+  /* skills grid */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .skills-grid .skill-group{
+    background: var(--resume-surface);
+    border: 1px solid var(--resume-border);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+  }
+  .skills-grid h3{
+    margin: 0 0 0.5rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--resume-accent);
+  }
+  .skills-grid ul{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .skills-grid li{
+    font-size: 0.78rem;
+    background: var(--resume-bg);
+    border: 1px solid var(--resume-border);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  /* certifications */
+  .cert-list{ list-style:none; margin:0; padding:0; }
+  .cert-list li{
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--resume-border);
+    font-size: 0.9rem;
+  }
+  .cert-list li:last-child{ border-bottom:none; }
+  .cert-list a{ color: var(--resume-accent); }
+  .cert-list p{ margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--resume-muted); font-style: italic; }
+
+  footer.page-footer{
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--resume-border);
+    font-size: 0.75rem;
+    color: var(--resume-muted);
+  }
+
+  /* Visible focus ring everywhere (a11y) */
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--resume-accent);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+
+  /* Mobile: collapse sidebar above content */
+  @media (max-width: 860px){
+    .layout{ grid-template-columns: 1fr; }
+    .toc-sidebar{
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--resume-border);
+    }
+    main{ padding: 1.5rem 1.25rem 3rem; }
+    .paper-title{ font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<!-- Terminal-style titlebar, matches site-wide terminal window chrome -->
+<div class="term-titlebar" role="banner">
+  <span class="term-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+  <span class="term-path">bhushan@portfolio</span>&nbsp;:~$&nbsp;<span id="term-clock" aria-live="off"></span>
+  <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light theme">
+    <span id="theme-toggle-icon" aria-hidden="true">◐</span> theme
+  </button>
+</div>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR / TABLE OF CONTENTS ============ -->
+  <aside class="toc-sidebar" aria-label="Table of contents">
+    <h2 id="toc-heading">Contents</h2>
+    <nav aria-labelledby="toc-heading">
+      <ol>
+        <li><a href="#abstract"><span class="num">–</span>Abstract</a></li>
+        <li>
+          <a href="#section1"><span class="num">1</span>Education</a>
+        </li>
+        <li>
+          <a href="#section2"><span class="num">2</span>Experience</a>
+          <ol>
+            <li><a href="#section2-1"><span class="num">2.1</span>NetFortress Technologies</a></li>
+            <li><a href="#section2-2"><span class="num">2.2</span>ONGC</a></li>
+          </ol>
+        </li>
+        <li><a href="#section3"><span class="num">3</span>Publication</a></li>
+        <li>
+          <a href="#section4"><span class="num">4</span>Technical Projects</a>
+          <ol>
+            <li><a href="#section4-1"><span class="num">4.1</span>Gemma-M4-Agent</a></li>
+            <li><a href="#section4-2"><span class="num">4.2</span>TISD-Edu-AI</a></li>
+          </ol>
+        </li>
+        <li><a href="#section5"><span class="num">5</span>Technical Skills</a></li>
+        <li><a href="#section6"><span class="num">6</span>Certifications</a></li>
+      </ol>
+    </nav>
+    <div class="toc-footer">
+      <p><a href="resume.pdf">Download PDF</a></p>
+      <p>Rendered in arXiv-style HTML for accessibility.</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main id="main-content" tabindex="-1">
+
+    <header class="paper-header">
+      <!--
+        <p class="paper-id">arXiv-style CV &middot; cs.CR &middot; last revised July 2026</p> 
+        -->
+      <h1 class="paper-title">Bhushan Ladgaonkar</h1>
+      <p class="paper-authors">Security Researcher &middot; Machine Learning Engineer &middot; Adversarial AI</p>
+      <p class="contact-line">
+        <a href="tel:+919152963095">+91 9152963095</a>
+        <span class="sep">|</span>
+        <a href="mailto:bhushanladgaonkar@gmail.com">bhushanladgaonkar@gmail.com</a>
+        <span class="sep">|</span>
+        <a href="https://linkedin.com/in/bhushan-ladgaonkar">linkedin.com/in/bhushan-ladgaonkar</a>
+        <span class="sep">|</span>
+        <a href="https://github.com/beeth73">github.com/beeth73</a>
+      </p>
+      <!--
+      <dl class="paper-meta">
+        <div>
+          <dt>License</dt>
+          <dd>Available for review &mdash; all rights reserved</dd>
+        </div>
+        <div>
+          <dt>Primary DOI</dt>
+          <dd><a href="https://doi.org/10.51584/IJRIAS.2026.110400185">10.51584/IJRIAS.2026.110400185</a></dd>
+        </div>
+        <div>
+          <dt>Version</dt>
+          <dd>v3 (July 2026)</dd>
+        </div>
+        <div>
+          <dt>Subjects</dt>
+          <dd>Adversarial Robustness; Network Security; Local LLM Systems</dd>
+        </div>
+      </dl>
+      -->
+    </header>
+
+    <section class="abstract" id="abstract" aria-labelledby="abstract-heading">
+      <h2 id="abstract-heading">Abstract</h2>
+      <p>
+        Security Researcher and Machine Learning Engineer specializing in Adversarial AI and AI Security. Published first-author
+        researcher in adversarial robustness; proven experience engineering ML-based Network Intrusion Detection Systems for enterprise
+        infrastructure and building hardware-optimized local LLM inference systems on Apple Silicon. Seeking to leverage expertise in
+        adversarial robustness, simulation, and security architectures.
+      </p>
+    </section>
+
+    <!-- ================= SECTION 1: EDUCATION ================= -->
+    <section class="section" id="section1" aria-labelledby="section1-heading">
+      <h2 class="zsh-header" id="section1-heading">
+        <span class="prompt">&gt;</span><span class="sec-num">1</span><span class="path">~/education</span>
+      </h2>
+      <div class="subsection">
+        <h3>Fr. Conceicao Rodrigues College of Engineering</h3>
+        <p class="role-meta">
+          <span>Bachelor of Technology (B.Tech), Computer Engineering</span>
+          <span>Mumbai, India &middot; Expected May 2028</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: EXPERIENCE ================= -->
+    <section class="section" id="section2" aria-labelledby="section2-heading">
+      <h2 class="zsh-header" id="section2-heading">
+        <span class="prompt">&gt;</span><span class="sec-num">2</span><span class="path">~/experience</span>
+      </h2>
+
+      <div class="subsection" id="section2-1">
+        <h3>2.1&nbsp; Cybersecurity Research Intern &mdash; NetFortress Technologies Private Limited</h3>
+        <p class="role-meta">
+          <span>Remote</span>
+          <span>June 2026 &ndash; Present</span>
+        </p>
+        <ul>
+          <li>Assisting in product development and technical research for enterprise technology solutions, focusing heavily on cybersecurity and AI infrastructure.</li>
+          <li>Supporting AI-related and cybersecurity initiatives through active participation in testing, execution activities, and the preparation of comprehensive technical documentation and reports.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="section2-2">
+        <h3>2.2&nbsp; Summer Intern, Database and Security Group &mdash; <a href="https://github.com/beeth73/Summer_Internship_NIDS">Oil and Natural Gas Corporation (ONGC)</a></h3>
+        <p class="role-meta">
+          <span>Mumbai, India</span>
+          <span>May 2025 &ndash; June 2025</span>
+        </p>
+        <ul>
+          <li>Developed a prototype Network Intrusion Detection System (NIDS) on the UNSW-NB15 dataset (2M+ records) to identify zero-day threats, addressing limitations of traditional signature-based detection.</li>
+          <li>Implemented Random Forest and XGBoost classifiers with SMOTE-based class imbalance handling and advanced feature engineering, reducing false positive rates while sustaining high detection sensitivity.</li>
+          <li>Collaborated with the Database Group to document threat detection methodologies, translating raw data findings into actionable security intelligence.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: PUBLICATION ================= -->
+    <section class="section" id="section3" aria-labelledby="section3-heading">
+      <h2 class="zsh-header" id="section3-heading">
+        <span class="prompt">&gt;</span><span class="sec-num">3</span><span class="path">~/publications</span>
+      </h2>
+      <div class="subsection">
+        <h3>Benchmarking Resilience: Asymmetric Latent Purification Inspired by Generative Diffusion Bottlenecks</h3>
+        <p class="role-meta">
+          <span>First &amp; Corresponding Author &middot; IJRIAS</span>
+          <span>Published: May 2026</span>
+        </p>
+        <p style="font-size:0.85rem; color:var(--resume-muted); margin:0 0 0.5rem;">
+          DOI: <a href="https://doi.org/10.51584/IJRIAS.2026.110400185">10.51584/IJRIAS.2026.110400185</a>
+        </p>
+        <ul>
+          <li>Proposed the Asymmetric Latent Purifier (ALP): a zero-shot structural defense leveraging a 64-channel bottleneck to shatter adversarial gradients prior to classification, eliminating the need for full generative models.</li>
+          <li>Recovered CIFAR-10 accuracy to 32.06% under iterative PGD-7 attacks (25.68 dB PSNR) while optimizing Apple Silicon inference to 1.25 ms/sample (100&times;+ faster than iterative purifiers).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: TECHNICAL PROJECTS ================= -->
+    <section class="section" id="section4" aria-labelledby="section4-heading">
+      <h2 class="zsh-header" id="section4-heading">
+        <span class="prompt">&gt;</span><span class="sec-num">4</span><span class="path">~/projects</span>
+      </h2>
+
+      <div class="subsection" id="section4-1">
+        <h3>4.1&nbsp; <a href="https://github.com/beeth73/gemma-m4-agent">Gemma-M4-Agent: Local LLM Inference System</a></h3>
+        <p class="role-meta">
+          <span>Python, MLX, FastAPI, ChromaDB, React</span>
+          <span>Apr 2026 &ndash; Ongoing</span>
+        </p>
+        <ul>
+          <li>Built a full-stack local LLM agent around Google Gemma on Apple Silicon M4 via the MLX framework &mdash; direct hardware-to-model ownership without wrappers such as Ollama or LM Studio; 8-bit quantized model footprint of 8.5 GB on Unified Memory.</li>
+          <li>Engineered a Hybrid Memory Architecture decoupling SSD-resident model weights from USB-persistent ChromaDB vector store (384-dim embeddings), enabling zero-copy GPU inference with persistent long-term memory across reboots.</li>
+          <li>Implemented dual-gate stop-token defense: silicon-level halt via MLX kernel token IDs and software-level control-sequence buffer matching, achieving 100% stop-token accuracy and preventing hallucinated output beyond semantic boundaries.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="section4-2">
+        <h3>4.2&nbsp; <a href="https://github.com/beeth73/TISD-Edu-AI">TISD-Edu-AI: Local-First RAG Tutor</a></h3>
+        <p class="role-meta">
+          <span>Python, MLX, ChromaDB, FastAPI, LLMs</span>
+          <span>Apr 2026</span>
+        </p>
+        <ul>
+          <li>Engineered a privacy-focused on-device RAG pipeline using Microsoft Phi-3 (3.8B) and ChromaDB, achieving 41.42 tokens/sec at 1.72 s latency with a 9.99 GB footprint on Apple Silicon via MLX.</li>
+          <li>Ingested 4,600+ pages of academic PDFs into 6,400+ semantic chunks; validated with a custom evaluation suite achieving 81.1% semantic accuracy across a 100-sample stress test.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5: TECHNICAL SKILLS ================= -->
+    <section class="section" id="section5" aria-labelledby="section5-heading">
+      <h2 class="zsh-header" id="section5-heading">
+        <span class="prompt">&gt;</span><span class="sec-num">5</span><span class="path">~/skills</span>
+      </h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <ul>
+            <li>Python</li><li>C</li><li>SQL</li><li>Java</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>AI &amp; ML</h3>
+          <ul>
+            <li>Machine Learning</li><li>Reinforcement Learning</li><li>RAG</li>
+            <li>LLMs</li><li>MCTS</li><li>PyTorch</li><li>MLX</li>
+            <li>ChromaDB</li><li>XGBoost</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Security</h3>
+          <ul>
+            <li>Network Intrusion Detection (NIDS)</li>
+            <li>Adversarial Robustness</li>
+            <li>OSINT</li><li>Reconnaissance</li>
+            <li>Linux (Kali, Ubuntu)</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Developer Tools</h3>
+          <ul>
+            <li>Git</li><li>FastAPI</li><li>React</li>
+            <li>Node.js</li><li>Docker</li><li>VS Code</li><li>Jupyter</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 6: CERTIFICATIONS ================= -->
+    <section class="section" id="section6" aria-labelledby="section6-heading">
+      <h2 class="zsh-header" id="section6-heading">
+        <span class="prompt">&gt;</span><span class="sec-num">6</span><span class="path">~/certifications</span>
+      </h2>
+      <ul class="cert-list">
+        <li>
+          <a href="https://beeth73.github.io/10611/images/CS50_Cybersecurity.png">CS50 Cybersecurity</a> &mdash; Harvard University
+          <p>Comprehensive study of encryption, web security, network protocols, and defensive programming practices.</p>
+        </li>
+        <li>
+          <a href="https://beeth73.github.io/10611/images/Offensive_Security_Operations.png">Offensive Security Operations</a> &mdash; Cybrary
+          <p>Hands-on training in penetration testing methodologies, exploitation techniques, and red team operations.</p>
+        </li>
+        <li>
+          <a href="https://beeth73.github.io/10611/images/OSINT.jpeg">OSINT (Open-Source Intelligence)</a> &mdash; Cybrary
+          <p>Techniques for gathering, analyzing, and operationalizing publicly available intelligence for threat investigations.</p>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="page-footer">
+      <p>© 2026 Bhushan Ladgaonkar &middot; <a href="mailto:bhushanladgaonkar@gmail.com" style="color:var(--resume-accent);">Get in touch</a></p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- Fully self-contained script — no external files required -->
+<script>
+  (function () {
+    'use strict';
+
+    /* ---------- Theme toggle (dark/light), persisted, a11y-labelled ---------- */
+    var root = document.documentElement;
+    var toggleBtn = document.getElementById('theme-toggle');
+    var toggleIcon = document.getElementById('theme-toggle-icon');
+    var STORAGE_KEY = 'resume-theme';
+
+    function getPreferredTheme() {
+      try {
+        var stored = window.localStorage.getItem(STORAGE_KEY);
+        if (stored === 'light' || stored === 'dark') return stored;
+      } catch (e) { /* localStorage unavailable (e.g. private mode) — ignore */ }
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+        ? 'light'
+        : 'dark';
+    }
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      if (toggleBtn) {
+        var isLight = theme === 'light';
+        toggleBtn.setAttribute('aria-pressed', String(isLight));
+        toggleBtn.setAttribute('aria-label', 'Switch to ' + (isLight ? 'dark' : 'light') + ' theme');
+      }
+      if (toggleIcon) {
+        toggleIcon.textContent = theme === 'light' ? '◑' : '◐';
+      }
+    }
+
+    applyTheme(getPreferredTheme());
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        applyTheme(next);
+        try { window.localStorage.setItem(STORAGE_KEY, next); } catch (e) { /* ignore */ }
+      });
+    }
+
+    /* ---------- Live terminal clock: "Wed Jul 15 00:13:18 IST 2026" ---------- */
+    var clockEl = document.getElementById('term-clock');
+    if (clockEl) {
+      var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      var pad2 = function (n) { return n < 10 ? '0' + n : String(n); };
+
+      // Best-effort timezone abbreviation (e.g. "IST", "GMT", "PST").
+      // Falls back to the UTC offset if the browser can't produce a short name.
+      var getTzAbbr = function (date) {
+        try {
+          var parts = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(date);
+          var tz = parts.find(function (p) { return p.type === 'timeZoneName'; });
+          if (tz && tz.value) return tz.value;
+        } catch (e) { /* Intl unsupported — fall through */ }
+        var offsetMin = -date.getTimezoneOffset();
+        var sign = offsetMin >= 0 ? '+' : '-';
+        var abs = Math.abs(offsetMin);
+        return 'UTC' + sign + pad2(Math.floor(abs / 60)) + ':' + pad2(abs % 60);
+      };
+
+      var tick = function () {
+        var now = new Date();
+        var formatted =
+          DAY_NAMES[now.getDay()] + ' ' +
+          MONTH_NAMES[now.getMonth()] + ' ' +
+          pad2(now.getDate()) + ' ' +
+          pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds()) + ' ' +
+          getTzAbbr(now) + ' ' +
+          now.getFullYear();
+        clockEl.textContent = formatted;
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    /* ---------- Active TOC highlighting on scroll ---------- */
+    if ('IntersectionObserver' in window) {
+      var sections = document.querySelectorAll('main section[id]');
+      var links = document.querySelectorAll('.toc-sidebar a');
+
+      var setActive = function (id) {
+        links.forEach(function (link) {
+          if (link.getAttribute('href') === '#' + id) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) setActive(entry.target.id);
+          });
+        },
+        { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+      );
+
+      sections.forEach(function (section) { observer.observe(section); });
+    }
+  })();
+</script>
+
+</body>
+</html>
