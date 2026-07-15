@@ -147,7 +147,9 @@
   .toc-sidebar a{
     display: block;
     color: var(--resume-text);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--resume-border);
+    text-underline-offset: 2px;
     padding: 0.2rem 0.35rem;
     border-radius: 4px;
   }
@@ -160,10 +162,11 @@
   .toc-sidebar a:focus-visible{
     background: var(--resume-surface);
     color: var(--resume-accent);
+    text-decoration-color: currentColor;
     outline: 2px solid var(--resume-accent);
     outline-offset: 1px;
   }
-  .toc-sidebar a[aria-current="true"]{
+  .toc-sidebar a[aria-current="location"]{
     background: var(--resume-surface);
     color: var(--resume-accent);
     font-weight: 600;
@@ -237,7 +240,13 @@
     margin-bottom: 0.15rem;
   }
   .paper-meta dd{ margin: 0; color: var(--resume-text); }
-  .paper-meta a{ color: var(--resume-accent); }
+  .paper-meta a{
+    color: var(--resume-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--resume-border);
+    text-underline-offset: 2px;
+  }
+  .paper-meta a:hover, .paper-meta a:focus-visible{ text-decoration-color: currentColor; }
 
   /* Abstract */
   .abstract{
@@ -298,7 +307,13 @@
     margin-bottom: 0.35rem;
     font-size: 0.9rem;
   }
-  .subsection a{ color: var(--resume-accent); }
+  .subsection a{
+    color: var(--resume-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--resume-border);
+    text-underline-offset: 2px;
+  }
+  .subsection a:hover, .subsection a:focus-visible{ text-decoration-color: currentColor; }
 
   /* skills grid */
   .skills-grid{
@@ -340,7 +355,13 @@
     font-size: 0.9rem;
   }
   .cert-list li:last-child{ border-bottom:none; }
-  .cert-list a{ color: var(--resume-accent); }
+  .cert-list a{
+    color: var(--resume-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--resume-border);
+    text-underline-offset: 2px;
+  }
+  .cert-list a:hover, .cert-list a:focus-visible{ text-decoration-color: currentColor; }
   .cert-list p{ margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--resume-muted); font-style: italic; }
 
   footer.page-footer{
@@ -381,13 +402,13 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 
 <!-- Terminal-style titlebar, matches site-wide terminal window chrome -->
-<div class="term-titlebar" role="banner">
+<header class="term-titlebar">
   <span class="term-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-  <span class="term-path">bhushan@portfolio</span>&nbsp;:~$&nbsp;<span id="term-clock" aria-live="off"></span>
+  <span class="term-path" aria-hidden="true">bhushan@portfolio</span><span aria-hidden="true">&nbsp;:~$&nbsp;</span><span id="term-clock" aria-hidden="true"></span>
   <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light theme">
     <span id="theme-toggle-icon" aria-hidden="true">◐</span> theme
   </button>
-</div>
+</header>
 
 <div class="layout">
 
@@ -620,15 +641,15 @@
       </h2>
       <ul class="cert-list">
         <li>
-          <a href="https://beeth73.github.io/10611/images/CS50_Cybersecurity.png">CS50 Cybersecurity</a> &mdash; Harvard University
+          <a href="https://beeth73.github.io/10611/images/CS50_Cybersecurity.png" aria-label="CS50 Cybersecurity certificate, opens an image">CS50 Cybersecurity</a> &mdash; Harvard University
           <p>Comprehensive study of encryption, web security, network protocols, and defensive programming practices.</p>
         </li>
         <li>
-          <a href="https://beeth73.github.io/10611/images/Offensive_Security_Operations.png">Offensive Security Operations</a> &mdash; Cybrary
+          <a href="https://beeth73.github.io/10611/images/Offensive_Security_Operations.png" aria-label="Offensive Security Operations certificate, opens an image">Offensive Security Operations</a> &mdash; Cybrary
           <p>Hands-on training in penetration testing methodologies, exploitation techniques, and red team operations.</p>
         </li>
         <li>
-          <a href="https://beeth73.github.io/10611/images/OSINT.jpeg">OSINT (Open-Source Intelligence)</a> &mdash; Cybrary
+          <a href="https://beeth73.github.io/10611/images/OSINT.jpeg" aria-label="OSINT (Open-Source Intelligence) certificate, opens an image">OSINT (Open-Source Intelligence)</a> &mdash; Cybrary
           <p>Techniques for gathering, analyzing, and operationalizing publicly available intelligence for threat investigations.</p>
         </li>
       </ul>
@@ -729,7 +750,7 @@
       var setActive = function (id) {
         links.forEach(function (link) {
           if (link.getAttribute('href') === '#' + id) {
-            link.setAttribute('aria-current', 'true');
+            link.setAttribute('aria-current', 'location');
           } else {
             link.removeAttribute('aria-current');
           }
