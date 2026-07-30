@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /secret/
+
+Sitemap: https://www.bhushanladgaonkar.me/sitemap.xml
