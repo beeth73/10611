@@ -737,15 +737,6 @@ section { margin-bottom: 4rem; }
     main { padding: 1rem 3%; }
 }
 
-/* Short viewports (landscape phones, very high browser zoom):
-   let the page scroll normally instead of trapping content in a tiny scroll box */
-@media (max-height: 600px) {
-    main { align-items: flex-start; }
-    .terminal-window { height: auto; }
-    .terminal-body { overflow: visible; }
-}
-
-
 /* ── 17. FORCED COLORS (Windows High Contrast) ───────────────── */
 @media (forced-colors: active) {
     .slider { border: 1px solid ButtonText; }
