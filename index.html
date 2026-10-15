@@ -9,15 +9,16 @@
     <meta name="google-site-verification" content="oiG8g_qYQ4ERsCbsAvI_O3b97syIZt12eOMm4MJ0K6M" />
     <link rel="icon" href="images/B.png" type="image/png" />
     
-    <!-- Security: Content Security Policy -->
+    <!-- Security: Content Security Policy
+         Credly additions: cdn.credly.com (script-src) and www.credly.com (frame-src) -->
     <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self'; 
-               script-src 'self' 'unsafe-inline' https://gc.zgo.at https://mapmyvisitors.com; 
+               script-src 'self' 'unsafe-inline' https://gc.zgo.at https://mapmyvisitors.com https://cdn.credly.com; 
                connect-src 'self' https://*.goatcounter.com; 
                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
                font-src 'self' https://fonts.gstatic.com; 
-               img-src 'self' data: https://mapmyvisitors.com;
-               frame-src 'none';">
+               img-src 'self' data: https://mapmyvisitors.com; 
+               frame-src https://www.credly.com;">
 
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <!-- anomalous traffic detected on node sentinel-node-01. investigate: /secret/ -->
@@ -375,7 +376,21 @@
                 <!-- ==================== CERTIFICATIONS ==================== -->
                 <section id="certifications">
                     <h2><span aria-hidden="true">~/</span>certifications</h2>
+
                     <div class="certificate-grid">
+                        <!-- Credly badge: first item in the grid.
+                             Deliberately NOT class="certificate-card": script.js attaches modal/click
+                             handlers to that class and expects an <img> inside.
+                             White background keeps the embed's dark text legible in dark mode.
+                             To add more badges, copy this whole div. The embed script at the bottom
+                             of <body> only needs to be included once. -->
+                        <div class="credly-badge-card"
+                             style="background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: center; align-items: center;">
+                            <div data-iframe-width="150" data-iframe-height="270"
+                                 data-share-badge-id="00d20319-0147-4a2b-9c9a-a5a43bedab94"
+                                 data-share-badge-host="https://www.credly.com"></div>
+                        </div>
+
                         <div class="certificate-card">
                             <img src="images/CS50_Cybersecurity.png" alt="CS50 Cybersecurity Certificate"
                                  data-description="Harvard University's intensive coursework covering Systems Security (Buffer Overflows), Web Security (SQLi, XSS), and Cryptography. Capstone: Technical forensic analysis of CVE-2025-61882 (Supply Chain Vulnerability).">
@@ -503,5 +518,7 @@
     <script data-goatcounter="https://beeth.goatcounter.com/count" async src="//gc.zgo.at/count.js" defer></script>
     <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=lZFCRDGquvXuX0oFaahg2Ri_mxTUKV2a6X-YtghHOG0"></script>
     <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&cl=ffffff&w=a"></script>
+    <!-- Credly badge embed -->
+    <script async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
 </body>
 </html>
