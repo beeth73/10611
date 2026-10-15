@@ -10,7 +10,7 @@
     <link rel="icon" href="images/B.png" type="image/png" />
     
     <!-- Security: Content Security Policy
-         Credly additions: cdn.credly.com (script-src) and www.credly.com (frame-src) -->
+         Credly: cdn.credly.com (script-src) and www.credly.com (frame-src) -->
     <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self'; 
                script-src 'self' 'unsafe-inline' https://gc.zgo.at https://mapmyvisitors.com https://cdn.credly.com; 
@@ -19,6 +19,29 @@
                font-src 'self' https://fonts.gstatic.com; 
                img-src 'self' data: https://mapmyvisitors.com; 
                frame-src https://www.credly.com;">
+
+    <!-- Theme bootstrap: runs before first paint so there is no light-mode flash.
+         Saved choice wins; otherwise dark (your default) unless the OS explicitly asks for light. -->
+    <script>
+    (function () {
+        var saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (e) {}
+        var dark = saved
+            ? saved === "dark-mode"
+            : !(window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches);
+        var root = document.documentElement;
+        root.classList.toggle("dark-mode", dark);
+        root.style.colorScheme = dark ? "dark" : "light";
+    })();
+    </script>
+
+    <!-- If JavaScript is off or blocked, don't leave visitors on a blank loader screen -->
+    <noscript>
+        <style>
+            #loader { display: none; }
+            header.unloaded, main.unloaded { opacity: 1; transform: none; }
+        </style>
+    </noscript>
 
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <!-- anomalous traffic detected on node sentinel-node-01. investigate: /secret/ -->
@@ -29,7 +52,7 @@
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <div id="loader" role="status" aria-live="polite" aria-label="Loading portfolio">
-         <pre>
+         <pre aria-hidden="true">
    ██████╗ ██╗  ██╗██╗   ██╗███████╗██╗  ██╗ █████╗ ███╗   ██╗
    ██╔══██╗██║  ██║██║   ██║██╔════╝██║  ██║██╔══██╗████╗  ██║
    ██████╔╝███████║██║   ██║███████╗███████║███████║██╔██╗ ██║
@@ -42,7 +65,7 @@
     </div>
 
     <header class="unloaded">
-        <div class="header-name"><span aria-hidden="true">~/</span>Bhushan_Ladgaonkar</div>
+        <h1 class="header-name"><span aria-hidden="true">~/</span>Bhushan_Ladgaonkar</h1>
         <nav aria-label="Primary navigation">
         <a href="#about"><span aria-hidden="true">~/</span>about</a>
         <a href="#experience"><span aria-hidden="true">~/</span>experience</a>
@@ -55,35 +78,31 @@
         <a href="#contact"><span aria-hidden="true">~/</span>contact</a>
 
         <!-- Handcrafted Blog -->
-        <a href="https://blog.bhushanladgaonkar.me/" target="_blank" rel="noopener noreferrer"
-       aria-label="Visit personal writing and technical journal (opens in new tab)">
-       <span aria-hidden="true">~/</span>blog
+        <a href="https://blog.bhushanladgaonkar.me/" target="_blank" rel="noopener noreferrer">
+            <span aria-hidden="true">~/</span>blog<span class="sr-only"> (opens in new tab)</span>
         </a>
 
         <!-- NEW: arXiv HTML Resume Button -->
         <!--
-        <a href="resume.html" 
-       aria-label="View accessible arXiv-style HTML resume" 
-       style="color: var(--accent-color); font-weight: bold;">
+        <a href="resume.html" style="color: var(--accent-color); font-weight: bold;">
         <span aria-hidden="true">~/</span>resume.html
         </a>
          -->
     
-        <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" class="resume-link"
-       aria-label="Download resume PDF (opens in new tab)">
-       <span aria-hidden="true">~/</span>resume.pdf
+        <a href="Bhushan_Ladgaonkar_Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-link">
+            <span aria-hidden="true">~/</span>resume.pdf<span class="sr-only"> (PDF, opens in new tab)</span>
         </a>
     </nav>
         <div class="theme-switcher">
-            <label class="switch" aria-label="Toggle dark mode">
-                <input type="checkbox" id="theme-toggle">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle" role="switch" aria-label="Dark mode">
                 <span class="slider round"></span>
             </label>
         </div>
     </header>
 
-    <main class="unloaded" id="main-content">
-        <div class="terminal-window" role="region" aria-label="Portfolio content">
+    <main class="unloaded" id="main-content" tabindex="-1">
+        <div class="terminal-window">
                 <div class="terminal-header" aria-hidden="true">
                     <div class="terminal-buttons">
                         <span class="terminal-button red"></span>
@@ -92,7 +111,8 @@
                     </div>
                     <span>zsh <span id="terminal-dimensions">80x24</span></span>
                 </div>
-            <div class="terminal-body">
+            <!-- tabindex="0" so keyboard users can scroll this panel with the arrow keys -->
+            <div class="terminal-body" role="region" aria-label="Portfolio content" tabindex="0">
 
                 <!-- ==================== ABOUT ==================== -->
                 <section id="about">
@@ -110,9 +130,12 @@
 
                    <!-- NetFortress -->
                     <div class="project-item">
-                        <img src="images/NetFortress_CC.png"
-                             alt="NetFortress Internship Completion Certificate"
-                             class="project-item-image">
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/NetFortress_CC.png"
+                                 alt="NetFortress Internship Completion Certificate"
+                                 class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         <div class="project-item-content">
                             <h3>NetFortress Technologies Pvt. Ltd.</h3>
                             <p class="role-date">Cyber Security Intern &middot; June 2026 – June 2026</p>
@@ -121,22 +144,25 @@
                                 including CORS misconfigurations, session hijacking, and insecure deserialization. 
                                 Implementing multithreaded backend optimizations using native thread-pool offloading to ensure secure, 
                                 concurrent model inference under heavy production workloads. Authored system architecture specifications and secure deployment playbooks.</p>
-                            <div class="project-tags">
-                                <span>Biometrics</span>
-                                <span>rPPG Liveness</span>
-                                <span>API Security</span>
-                                <span>Multithreading</span>
-                                <span>Docker</span>
-                                <span>CORS</span>
-                            </div>
+                            <ul class="project-tags" role="list">
+                                <li>Biometrics</li>
+                                <li>rPPG Liveness</li>
+                                <li>API Security</li>
+                                <li>Multithreading</li>
+                                <li>Docker</li>
+                                <li>CORS</li>
+                            </ul>
                         </div>
                     </div>
                     
                     <!-- ONGC -->
                     <div class="project-item">
-                        <img src="images/Certificate_of_Completion_Internship_at_ONGC.png"
-                             alt="ONGC Internship Completion Certificate"
-                             class="project-item-image">
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/Certificate_of_Completion_Internship_at_ONGC.png"
+                                 alt="ONGC Internship Completion Certificate"
+                                 class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         <div class="project-item-content">
                             <h3>Oil and Natural Gas Corporation (ONGC)</h3>
                             <p class="role-date">Summer Intern | Database &amp; Security Group &middot; May 2025 – June 2025</p>
@@ -146,13 +172,13 @@
                             (2M+ records) and optimized detection models (RandomForest, XGBoost)
                             using SMOTE to handle class imbalance. Analyzed zero-day attack
                             patterns under the guidance of the Database Programming division.</p>
-                            <div class="project-tags">
-                                <span>Network Security</span>
-                                <span>Machine Learning</span>
-                                <span>RandomForest</span>
-                                <span>XGBoost</span>
-                                <span>SMOTE</span>
-                            </div>
+                            <ul class="project-tags" role="list">
+                                <li>Network Security</li>
+                                <li>Machine Learning</li>
+                                <li>RandomForest</li>
+                                <li>XGBoost</li>
+                                <li>SMOTE</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -164,11 +190,11 @@
                             <p>Coordinating IPR, patent filing, and research commercialization
                             initiatives to foster an innovation ecosystem among engineering
                             students.</p>
-                            <div class="project-tags">
-                                <span>IPR</span>
-                                <span>Patent Filing</span>
-                                <span>Research Commercialization</span>
-                            </div>
+                            <ul class="project-tags" role="list">
+                                <li>IPR</li>
+                                <li>Patent Filing</li>
+                                <li>Research Commercialization</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -178,7 +204,7 @@
                     <h2><span aria-hidden="true">~/</span>skills</h2>
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <h3>&gt; Languages</h3>
+                            <h3><span aria-hidden="true">&gt; </span>Languages</h3>
                             <ul>
                                 <li>Python</li>
                                 <li>JavaScript / TypeScript</li>
@@ -188,7 +214,7 @@
                             </ul>
                         </div>
                         <div class="skill-category">
-                            <h3>&gt; Security</h3>
+                            <h3><span aria-hidden="true">&gt; </span>Security</h3>
                             <ul>
                                 <li>Kali Linux</li>
                                 <li>Burp Suite</li>
@@ -199,7 +225,7 @@
                             </ul>
                         </div>
                         <div class="skill-category">
-                            <h3>&gt; AI &amp; ML</h3>
+                            <h3><span aria-hidden="true">&gt; </span>AI &amp; ML</h3>
                             <ul>
                                 <li>PyTorch</li>
                                 <li>ONNX Runtime</li>
@@ -210,7 +236,7 @@
                             </ul>
                         </div>
                         <div class="skill-category">
-                            <h3>&gt; Web &amp; Backend</h3>
+                            <h3><span aria-hidden="true">&gt; </span>Web &amp; Backend</h3>
                             <ul>
                                 <li>React 19</li>
                                 <li>Flask / Gunicorn</li>
@@ -228,8 +254,11 @@
 
                     <!-- TISD-Edu-AI -->
                     <div class="project-item">
-                        <!-- Uncomment when screenshot is ready:
-                        <img src="images/tisd_preview.png" alt="TISD-Edu-AI RAG pipeline diagram" class="project-item-image">
+                        <!-- Uncomment when screenshot is ready (keep the button wrapper so it stays keyboard accessible):
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/tisd_preview.png" alt="TISD-Edu-AI RAG pipeline diagram" class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         -->
                         <div class="project-item-content">
                             <h3>TISD-Edu-AI: Local-First RAG Tutor</h3>
@@ -239,22 +268,25 @@
                             (6422 &times; 384 dimensions). The Phi-3 (3.8B) inference pipeline
                             achieves 41.42 tokens/sec at 1.72s latency with a 9.99GB memory
                             footprint — zero data leaves the device.</p>
-                            <div class="project-tags">
-                                <span>Python</span>
-                                <span>MLX</span>
-                                <span>ChromaDB</span>
-                                <span>FastAPI</span>
-                                <span>RAG</span>
-                                <span>Apple Silicon</span>
-                            </div>
-                            <a href="https://github.com/beeth73/TISD-Edu-AI" class="project-link" target="_blank">View on GitHub</a>
+                            <ul class="project-tags" role="list">
+                                <li>Python</li>
+                                <li>MLX</li>
+                                <li>ChromaDB</li>
+                                <li>FastAPI</li>
+                                <li>RAG</li>
+                                <li>Apple Silicon</li>
+                            </ul>
+                            <a href="https://github.com/beeth73/TISD-Edu-AI" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub<span class="sr-only"> — TISD-Edu-AI (opens in new tab)</span></a>
                         </div>
                     </div>
 
                     <!-- gemma-m4-agent -->
                     <div class="project-item">
-                        <!-- Uncomment when screenshot is ready:
-                        <img src="images/gemma_agent_preview.png" alt="gemma-m4-agent AMOLED interface" class="project-item-image">
+                        <!-- Uncomment when screenshot is ready (keep the button wrapper so it stays keyboard accessible):
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/gemma_agent_preview.png" alt="gemma-m4-agent AMOLED interface" class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         -->
                         <div class="project-item-content">
                             <h3>gemma-m4-agent: Production Local AI Agent</h3>
@@ -265,21 +297,24 @@
                             streaming and DuckDuckGo-grounded web search. Solved LLM hallucinated
                             turn-leakage via dual-gate stop logic: silicon-level token ID
                             injection + software-level rolling string-match guard.</p>
-                            <div class="project-tags">
-                                <span>Python</span>
-                                <span>MLX</span>
-                                <span>Gemma 4 8B</span>
-                                <span>React</span>
-                                <span>FastAPI</span>
-                                <span>SSE Streaming</span>
-                            </div>
-                            <a href="https://github.com/beeth73/gemma-m4-agent" class="project-link" target="_blank">View on GitHub</a>
+                            <ul class="project-tags" role="list">
+                                <li>Python</li>
+                                <li>MLX</li>
+                                <li>Gemma 4 8B</li>
+                                <li>React</li>
+                                <li>FastAPI</li>
+                                <li>SSE Streaming</li>
+                            </ul>
+                            <a href="https://github.com/beeth73/gemma-m4-agent" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub<span class="sr-only"> — gemma-m4-agent (opens in new tab)</span></a>
                         </div>
                     </div>
 
                     <!-- MendikotZero -->
                     <div class="project-item">
-                        <img src="images/mendikot_paper_preview.png" alt="MendikotZero Architecture Diagram" class="project-item-image">
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/mendikot_paper_preview.png" alt="MendikotZero Architecture Diagram" class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         <div class="project-item-content">
                             <h3>MendikotZero: AlphaZero RL Agent</h3>
                             <p>Engineered an autonomous AI agent for the Indian card game
@@ -288,40 +323,46 @@
                             Monte Carlo Tree Search (MCTS) guided by a Dual-Head Neural Network.
                             The agent was trained via self-play without human data, evolving
                             from random moves to advanced strategic planning.</p>
-                            <div class="project-tags">
-                                <span>Python</span>
-                                <span>PyTorch</span>
-                                <span>Reinforcement Learning</span>
-                                <span>MCTS</span>
-                            </div>
-                            <a href="https://github.com/beeth73/Mendikot_ai_project" class="project-link" target="_blank">View Code &amp; Paper</a>
+                            <ul class="project-tags" role="list">
+                                <li>Python</li>
+                                <li>PyTorch</li>
+                                <li>Reinforcement Learning</li>
+                                <li>MCTS</li>
+                            </ul>
+                            <a href="https://github.com/beeth73/Mendikot_ai_project" class="project-link" target="_blank" rel="noopener noreferrer">View Code &amp; Paper<span class="sr-only"> — MendikotZero (opens in new tab)</span></a>
                         </div>
                     </div>
 
                     <!-- CS50 Cybersecurity -->
                     <div class="project-item">
-                        <img src="images/CS50cy_final.png" alt="CS50 Cybersecurity Final Project — CVE-2025-61882" class="project-item-image">
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/CS50cy_final.png" alt="CS50 Cybersecurity Final Project — CVE-2025-61882" class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         <div class="project-item-content">
                             <h3>CS50 Cybersecurity: Anatomy of a Critical Failure</h3>
-                            <h3>CVE-2025-61882 — Oracle Agile PLM (CVSS 9.8)</h3>
+                            <span class="project-subtitle">CVE-2025-61882 — Oracle Agile PLM (CVSS 9.8)</span>
                             <p>Technical forensic analysis of a critical Path Traversal
                             vulnerability in Oracle Agile PLM. Deconstructed the input
                             validation failure and proposed defense-in-depth remediation
                             strategies including Path Canonicalization and Least Privilege
                             architecture.</p>
-                            <div class="project-tags">
-                                <span>Vulnerability Research</span>
-                                <span>Supply Chain Security</span>
-                                <span>AppSec</span>
-                                <span>CVE Analysis</span>
-                            </div>
-                            <a href="https://www.youtube.com/watch?v=6U-Qj91Took" class="project-link" target="_blank">Watch Analysis</a>
+                            <ul class="project-tags" role="list">
+                                <li>Vulnerability Research</li>
+                                <li>Supply Chain Security</li>
+                                <li>AppSec</li>
+                                <li>CVE Analysis</li>
+                            </ul>
+                            <a href="https://www.youtube.com/watch?v=6U-Qj91Took" class="project-link" target="_blank" rel="noopener noreferrer">Watch Analysis<span class="sr-only"> — CS50 Cybersecurity CVE-2025-61882 video (opens in new tab)</span></a>
                         </div>
                     </div>
 
                     <!-- NIDS -->
                     <div class="project-item">
-                        <img src="images/NIDS.png" alt="Network Intrusion Detection System Metrics" class="project-item-image">
+                        <button type="button" class="project-image-btn" aria-haspopup="dialog">
+                            <img src="images/NIDS.png" alt="Network Intrusion Detection System Metrics" class="project-item-image" width="200" height="140" loading="lazy">
+                            <span class="sr-only">(enlarge image)</span>
+                        </button>
                         <div class="project-item-content">
                             <h3>Network Intrusion Detection System (NIDS)</h3>
                             <p>Developed a high-performance NIDS using machine learning to
@@ -329,13 +370,13 @@
                             workflow on the UNSW-NB15 dataset (2M+ records). The final Random
                             Forest model (with SMOTE) achieved an excellent balance between
                             high detection rates and low false positives.</p>
-                            <div class="project-tags">
-                                <span>Python</span>
-                                <span>Scikit-learn</span>
-                                <span>XGBoost</span>
-                                <span>SMOTE</span>
-                            </div>
-                            <a href="https://github.com/beeth73/Summer_Internship_NIDS" class="project-link" target="_blank">View on GitHub</a>
+                            <ul class="project-tags" role="list">
+                                <li>Python</li>
+                                <li>Scikit-learn</li>
+                                <li>XGBoost</li>
+                                <li>SMOTE</li>
+                            </ul>
+                            <a href="https://github.com/beeth73/Summer_Internship_NIDS" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub<span class="sr-only"> — NIDS (opens in new tab)</span></a>
                         </div>
                     </div>
                 </section>
@@ -359,15 +400,15 @@
                             backbone. Implemented a 20-sample Monte Carlo Ensemble on Apple M4,
                             recovering CIFAR-10 classification accuracy to 32.06% (25.68 dB PSNR)
                             under severe adversarial threat.</p>
-                            <div class="project-tags">
-                                <span>Adversarial AI</span>
-                                <span>Computer Vision</span>
-                                <span>PyTorch</span>
-                                <span>ResNet</span>
-                                <span>CIFAR-10</span>
-                                <span>PGD Attacks</span>
-                            </div>
-                            <a href="REPLACE_WITH_DOI_OR_JOURNAL_LINK" class="project-link" target="_blank">Read Paper</a>
+                            <ul class="project-tags" role="list">
+                                <li>Adversarial AI</li>
+                                <li>Computer Vision</li>
+                                <li>PyTorch</li>
+                                <li>ResNet</li>
+                                <li>CIFAR-10</li>
+                                <li>PGD Attacks</li>
+                            </ul>
+                            <a href="REPLACE_WITH_DOI_OR_JOURNAL_LINK" class="project-link" target="_blank" rel="noopener noreferrer">Read Paper<span class="sr-only"> — Asymmetric Latent Purification (opens in new tab)</span></a>
                         </div>
                     </div>
                 </section>
@@ -376,15 +417,16 @@
                 <!-- ==================== CERTIFICATIONS ==================== -->
                 <section id="certifications">
                     <h2><span aria-hidden="true">~/</span>certifications</h2>
-
                     <div class="certificate-grid">
                         <!-- Credly badge: first item in the grid.
                              Deliberately NOT class="certificate-card": script.js attaches modal/click
                              handlers to that class and expects an <img> inside.
                              White background keeps the embed's dark text legible in dark mode.
+                             data-badge-title is applied by script.js as the iframe's accessible name.
                              To add more badges, copy this whole div. The embed script at the bottom
                              of <body> only needs to be included once. -->
                         <div class="credly-badge-card"
+                             data-badge-title="AWS Academy Cloud Architecting badge, verified on Credly"
                              style="background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: center; align-items: center;">
                             <div data-iframe-width="150" data-iframe-height="270"
                                  data-share-badge-id="00d20319-0147-4a2b-9c9a-a5a43bedab94"
@@ -392,27 +434,27 @@
                         </div>
 
                         <div class="certificate-card">
-                            <img src="images/CS50_Cybersecurity.png" alt="CS50 Cybersecurity Certificate"
+                            <img src="images/CS50_Cybersecurity.png" alt="CS50 Cybersecurity Certificate" width="200" height="150" loading="lazy"
                                  data-description="Harvard University's intensive coursework covering Systems Security (Buffer Overflows), Web Security (SQLi, XSS), and Cryptography. Capstone: Technical forensic analysis of CVE-2025-61882 (Supply Chain Vulnerability).">
                             <p class="certificate-title">CS50 Cybersecurity (Harvard)</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chain"
+                            <img src="images/Cyber_Kill_Chains.jpeg" alt="Cyber Kill Chain" width="200" height="150" loading="lazy"
                                  data-description="Expertise in identifying and mitigating the stages of a cyber attack, from reconnaissance to data exfiltration.">
                             <p class="certificate-title">Cyber Kill Chain</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/OSINT.jpeg" alt="OSINT"
+                            <img src="images/OSINT.jpeg" alt="OSINT" width="200" height="150" loading="lazy"
                                  data-description="Validates skills in gathering and analyzing Open-Source Intelligence from publicly available sources.">
                             <p class="certificate-title">OSINT</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Offensive_Security_Operations.png" alt="Offensive Security Ops"
+                            <img src="images/Offensive_Security_Operations.png" alt="Offensive Security Ops" width="200" height="150" loading="lazy"
                                  data-description="Proficiency in ethical hacking engagements, penetration testing, and vulnerability assessment.">
                             <p class="certificate-title">Offensive Security Ops</p>
                         </div>
                         <div class="certificate-card">
-                            <img src="images/Reconnaissance_Enumeration_Basics.jpeg" alt="Reconnaissance & Enumeration Basics"
+                            <img src="images/Reconnaissance_Enumeration_Basics.jpeg" alt="Reconnaissance &amp; Enumeration Basics" width="200" height="150" loading="lazy"
                                  data-description="Foundational knowledge in network discovery, port scanning, and service enumeration.">
                             <p class="certificate-title">Recon &amp; Enumeration</p>
                         </div>
@@ -421,34 +463,34 @@
 
                 <!-- ==================== WRITING / BLOG ==================== -->
                 <section id="blog" style="margin-bottom: 2.5rem;">
-                    <h2><span aria-hidden="true">&gt; ~/</span>blog</h2>
-                    <p style="color: #888; font-size: 0.9rem; margin-top: 0.5rem; margin-bottom: 1rem; font-family: monospace;">
+                    <h2><span aria-hidden="true">~/</span>blog</h2>
+                    <p class="section-note">
                     Independent technical essays, system deep-dives, cultural critiques, and history.
-                     </p>
+                    </p>
 
                 <!-- Terminal styled links matching your contact section -->
                 <div class="social-links">
-                    <a href="https://blog.bhushanladgaonkar.me/?post=latest" target="_blank" rel="noopener noreferrer" style="color: #00d2ff; font-weight: bold;">
-                        Latest Post
+                    <a href="https://blog.bhushanladgaonkar.me/?post=latest" class="is-primary" target="_blank" rel="noopener noreferrer">
+                        Latest Post<span class="sr-only"> (opens in new tab)</span>
                     </a>
                     <a href="https://blog.bhushanladgaonkar.me/?list=all" target="_blank" rel="noopener noreferrer">
-                        Archive (~/posts)
+                        Archive (~/posts)<span class="sr-only"> (opens in new tab)</span>
                     </a>
                     <a href="https://blog.bhushanladgaonkar.me/" target="_blank" rel="noopener noreferrer">
-                        Home (~/home)
+                        Home (~/home)<span class="sr-only"> (opens in new tab)</span>
                     </a>
                     <a href="https://blog.bhushanladgaonkar.me/feed.xml" target="_blank" rel="noopener noreferrer">
-                        RSS Feed
+                        RSS Feed<span class="sr-only"> (opens in new tab)</span>
                     </a>
                  </div>
                 </section>
 
                 <!-- ==================== CONTACT ==================== -->
                 <section id="contact">
-                    <h2><span aria-hidden="true">&gt; ~/</span>contact</h2>
+                    <h2><span aria-hidden="true">~/</span>contact</h2>
                     <div class="social-links">
-                        <a href="https://github.com/beeth73" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        <a href="https://www.linkedin.com/in/bhushan-ladgaonkar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://github.com/beeth73" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in new tab)</span></a>
+                        <a href="https://www.linkedin.com/in/bhushan-ladgaonkar/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (opens in new tab)</span></a>
                         <a href="mailto:bhushanladgaonkar@gmail.com">Email</a>
                     </div>
                 </section>
@@ -457,11 +499,11 @@
         </div>
     </main>
 
-    <div id="modal" class="modal-overlay" aria-modal="true" aria-hidden="true" role="dialog" aria-labelledby="modal-title-id">
+    <div id="modal" class="modal-overlay" aria-modal="true" aria-hidden="true" role="dialog" aria-labelledby="modal-title-id" aria-describedby="modal-desc-id">
         <div class="modal-content">
-            <button class="modal-close" aria-label="Close">&times;</button>
-            <h3 class="modal-title" id="modal-title-id"></h3>
-            <p class="modal-description"></p>
+            <button type="button" class="modal-close" aria-label="Close">&times;</button>
+            <h2 class="modal-title" id="modal-title-id"></h2>
+            <p class="modal-description" id="modal-desc-id"></p>
             <img src="" alt="" class="modal-image">
         </div>
     </div>
@@ -477,17 +519,17 @@
     <!-- ==================== FOOTER BAR ==================== -->
     <footer id="site-footer" aria-label="Status bar">
 
-        <!-- Quote — rotates every 8s via script.js -->
-        <div id="footer-quote"
-             role="status"
-             aria-live="polite"
-             aria-atomic="true"
-             aria-label="Rotating quote">
+        <!-- Quote — rotates every 8s via script.js. Not a live region on purpose:
+             screen readers should not be interrupted every few seconds. -->
+        <div id="footer-quote">
             <!-- Populated by script.js -->
         </div>
 
+        <!-- WCAG 2.2.2: auto-updating content needs a pause control -->
+        <button type="button" id="quote-toggle" aria-label="Pause quote rotation">[pause]</button>
+
         <!-- Dual clock -->
-        <div id="footer-clock" aria-label="World clocks">
+        <div id="footer-clock" role="group" aria-label="World clocks">
 
             <!-- Visitor's local time -->
             <div class="clock-block">
@@ -515,9 +557,11 @@
     </footer>
 
     <script src="script.js"></script>
-    <script data-goatcounter="https://beeth.goatcounter.com/count" async src="//gc.zgo.at/count.js" defer></script>
-    <script type="text/javascript" id="mmvst_globe" src="//mapmyvisitors.com/globe.js?d=lZFCRDGquvXuX0oFaahg2Ri_mxTUKV2a6X-YtghHOG0"></script>
-    <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&cl=ffffff&w=a"></script>
+    <script data-goatcounter="https://beeth.goatcounter.com/count" async src="https://gc.zgo.at/count.js" defer></script>
+    <!-- mapmyvisitors scripts are left as plain (non-deferred) scripts on purpose:
+         they may rely on running in place while the page parses. -->
+    <script type="text/javascript" id="mmvst_globe" src="https://mapmyvisitors.com/globe.js?d=lZFCRDGquvXuX0oFaahg2Ri_mxTUKV2a6X-YtghHOG0"></script>
+    <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&cl=ffffff&w=a"></script>
     <!-- Credly badge embed -->
     <script async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
 </body>

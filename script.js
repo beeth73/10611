@@ -3,12 +3,15 @@
    Sections:
    1. QUOTES  ← Edit your quotes here
    2. TIMEZONE CONFIG  ← Change your timezone here
-   3. Loader
-   4. Theme Toggler
-   5. Modal
-   6. Footer Clock
-   7. Footer Quotes
-   8. Keyboard accessibility for certificate cards
+   3. Safe storage helpers
+   4. Loader
+   5. Theme Toggler
+   6. Modal
+   7. Footer Clock
+   8. Footer Quotes (with pause control)
+   9. Dynamic terminal dimensions
+   10. Keyboard accessibility for certificate cards
+   11. Credly badge iframe title
    ============================================================ */
 
 
@@ -72,17 +75,34 @@ const MY_TIMEZONE   = "Asia/Kolkata";   // ← only line you ever need to change
 const MY_LABEL      = "BHU / IST";      // label shown under your clock
 
 
-/* ── 3. LOADER ───────────────────────────────────────────────── */
+/* ── 3. SAFE STORAGE HELPERS ─────────────────────────────────────
+   localStorage / sessionStorage can throw (Safari private mode,
+   blocked cookies, enterprise policies). These never throw.
+   ─────────────────────────────────────────────────────────────── */
+function storageGet(store, key) {
+    try { return window[store].getItem(key); } catch (e) { return null; }
+}
+function storageSet(store, key, value) {
+    try { window[store].setItem(key, value); } catch (e) { /* ignore */ }
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    /* ── 4. LOADER ───────────────────────────────────────────── */
     const loader  = document.getElementById("loader");
     const header  = document.querySelector("header");
     const main    = document.querySelector("main");
 
-    // Respect reduced-motion preference
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const loaderDelay   = reducedMotion ? 0 : 1500;
-    const fadeDuration  = reducedMotion ? 0 : 500;
+    // Show the full loader once per browser session; skip it on repeat visits
+    // and for people who prefer reduced motion.
+    const seenLoader  = storageGet("sessionStorage", "loaderSeen") === "1";
+    const skipLoader  = reducedMotionQuery.matches || seenLoader;
+    const loaderDelay = skipLoader ? 0 : 1500;
+    const fadeDuration= skipLoader ? 0 : 500;
+    storageSet("sessionStorage", "loaderSeen", "1");
 
     setTimeout(() => {
         loader.style.opacity = "0";
@@ -95,33 +115,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }, loaderDelay);
 
 
-    /* ── 4. THEME TOGGLER ────────────────────────────────────── */
+    /* ── 5. THEME TOGGLER ────────────────────────────────────────
+       The initial theme is applied before first paint by the inline
+       script in <head>; here we just sync the switch and handle changes.
+       The theme class lives on <html>.
+       ─────────────────────────────────────────────────────────── */
     const toggleSwitch = document.querySelector("#theme-toggle");
-    const body         = document.body;
+    const root         = document.documentElement;
 
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-        body.classList.toggle("dark-mode", savedTheme === "dark-mode");
-        toggleSwitch.checked = savedTheme === "dark-mode";
-    } else {
-        // Default: dark mode
-        body.classList.add("dark-mode");
-        toggleSwitch.checked = true;
+    function applyTheme(isDark) {
+        root.classList.toggle("dark-mode", isDark);
+        root.style.colorScheme = isDark ? "dark" : "light";   // native scrollbars & form controls follow the theme
+        toggleSwitch.checked   = isDark;
     }
+
+    applyTheme(root.classList.contains("dark-mode"));
 
     toggleSwitch.addEventListener("change", function (e) {
         const isDark = e.target.checked;
-        body.classList.toggle("dark-mode", isDark);
-        localStorage.setItem("theme", isDark ? "dark-mode" : "light-mode");
+        applyTheme(isDark);
+        storageSet("localStorage", "theme", isDark ? "dark-mode" : "light-mode");
     });
 
 
-    /* ── 5. MODAL ────────────────────────────────────────────── */
+    /* ── 6. MODAL ────────────────────────────────────────────── */
     const modal     = document.getElementById("modal");
     const modalImg  = modal.querySelector(".modal-image");
     const modalTitle= modal.querySelector(".modal-title");
     const modalDesc = modal.querySelector(".modal-description");
     const closeBtn  = modal.querySelector(".modal-close");
+
+    // Everything behind the dialog becomes inert while it is open:
+    // no tabbing into it, and screen readers can't wander out of the dialog.
+    const backgroundRegions = [
+        document.querySelector("header"),
+        document.querySelector("main"),
+        document.getElementById("site-footer")
+    ].filter(Boolean);
+
+    function setBackgroundInert(isInert) {
+        backgroundRegions.forEach(el => {
+            if (isInert) el.setAttribute("inert", "");
+            else         el.removeAttribute("inert");
+        });
+    }
 
     // Track element that opened the modal so we can return focus on close
     let modalOpener = null;
@@ -136,15 +173,18 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             modalImg.style.display    = "none";
         }
+        modalOpener = opener;
         modal.classList.add("visible");
         modal.removeAttribute("aria-hidden");
+        setBackgroundInert(true);
         closeBtn.focus();          // move focus into modal
-        modalOpener = opener;
     }
 
     function closeModal() {
+        if (!modal.classList.contains("visible")) return;
         modal.classList.remove("visible");
         modal.setAttribute("aria-hidden", "true");
+        setBackgroundInert(false);
         if (modalOpener) modalOpener.focus();  // return focus
     }
 
@@ -165,14 +205,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Project images
-    document.querySelectorAll(".project-item img.project-item-image").forEach(img => {
-        img.addEventListener("click", e => {
-            e.stopPropagation();
-            const parent = img.closest(".project-item");
+    // Project / experience images (real <button>s, so Enter/Space work natively)
+    document.querySelectorAll(".project-image-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const img    = btn.querySelector("img");
+            const parent = btn.closest(".project-item");
             const title  = parent.querySelector("h3").innerText;
-            const desc   = parent.querySelector("p").innerText;
-            openModal(title, desc, img.src, img);
+            // skip the date line so the modal shows the actual description
+            const descEl = parent.querySelector("p:not(.role-date)");
+            openModal(title, descEl ? descEl.innerText : "", img.src, btn);
         });
     });
 
@@ -204,10 +245,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* ── 6. FOOTER CLOCK ─────────────────────────────────────── */
+    /* ── 7. FOOTER CLOCK ─────────────────────────────────────── */
     const elMyTime    = document.getElementById("clock-my-time");
     const elUserTime  = document.getElementById("clock-user-time");
     const elDelta     = document.getElementById("clock-delta");
+    const elMyLabel   = document.getElementById("my-clock-label");
+
+    if (elMyLabel) elMyLabel.textContent = MY_LABEL;
 
     function pad(n) { return String(n).padStart(2, "0"); }
 
@@ -217,21 +261,24 @@ document.addEventListener("DOMContentLoaded", function () {
             hour:        "2-digit",
             minute:      "2-digit",
             second:      "2-digit",
-            hour12:      false,
+            hourCycle:   "h23",     // hour12:false can print "24:00:00" in some browsers
         });
     }
 
+    // Offset of `timezone` from UTC, in minutes, at the instant `date`.
+    // Built from Intl parts so it never depends on the visitor's own timezone.
     function getOffsetMinutes(date, timezone) {
-        // Parse the locale string to extract offset via date arithmetic
-        const utc  = Date.UTC(
-            date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-            date.getUTCHours(),    date.getUTCMinutes()
-        );
-        const local = new Date(date.toLocaleString("en-US", { timeZone: timezone }));
-        return Math.round((local - new Date(
-            Date.UTC(local.getFullYear(), local.getMonth(), local.getDate(),
-                     local.getHours(),   local.getMinutes())
-        )) / 60000);
+        const parts = {};
+        new Intl.DateTimeFormat("en-US", {
+            timeZone:  timezone,
+            hourCycle: "h23",
+            year: "numeric", month: "numeric", day: "numeric",
+            hour: "numeric", minute: "numeric", second: "numeric"
+        }).formatToParts(date).forEach(p => { parts[p.type] = parseInt(p.value, 10); });
+
+        const asUTC = Date.UTC(parts.year, parts.month - 1, parts.day,
+                               parts.hour, parts.minute, parts.second);
+        return Math.round((asUTC - Math.floor(date.getTime() / 1000) * 1000) / 60000);
     }
 
     function updateClocks() {
@@ -259,28 +306,49 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateClocks, 1000);
 
 
-    /* ── 7. FOOTER QUOTES ────────────────────────────────────── */
-    const quoteEl = document.getElementById("footer-quote");
+    /* ── 8. FOOTER QUOTES ────────────────────────────────────────
+       Not a live region (screen readers aren't interrupted), and
+       rotation can be paused (WCAG 2.2.2). Starts paused for people
+       who prefer reduced motion.
+       ─────────────────────────────────────────────────────────── */
+    const quoteEl     = document.getElementById("footer-quote");
+    const quoteToggle = document.getElementById("quote-toggle");
 
     if (quoteEl && QUOTES.length > 0) {
         // Shuffle once on load so order is random each visit
         const shuffled = [...QUOTES].sort(() => Math.random() - 0.5);
-        let index = 0;
+        let index  = 0;
+        let paused = reducedMotionQuery.matches;
 
         function setQuote(q) {
             const src = q.source ? ` — ${q.source}` : "";
             quoteEl.textContent = `"${q.text}"${src}`;
-            // Update accessible live region text
-            quoteEl.setAttribute("aria-label", `Quote: ${q.text}${src}`);
+        }
+
+        function syncToggle() {
+            if (!quoteToggle) return;
+            quoteToggle.textContent = paused ? "[resume]" : "[pause]";
+            quoteToggle.setAttribute(
+                "aria-label",
+                paused ? "Resume quote rotation" : "Pause quote rotation"
+            );
         }
 
         // Set first quote immediately
         setQuote(shuffled[0]);
+        syncToggle();
+
+        if (quoteToggle) {
+            quoteToggle.addEventListener("click", () => {
+                paused = !paused;
+                syncToggle();
+            });
+        }
 
         function rotateQuote() {
-            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (paused) return;
 
-            if (reducedMotion) {
+            if (reducedMotionQuery.matches) {
                 // No fade — just swap
                 index = (index + 1) % shuffled.length;
                 setQuote(shuffled[index]);
@@ -295,10 +363,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         setInterval(rotateQuote, QUOTE_INTERVAL_MS);
+    } else if (quoteToggle) {
+        quoteToggle.hidden = true;
     }
 
 
-    /* ── 8. DYNAMIC TERMINAL DIMENSIONS ──────────────────────── */
+    /* ── 9. DYNAMIC TERMINAL DIMENSIONS ──────────────────────── */
     const terminalBody = document.querySelector(".terminal-body");
     const dimensionsSpan = document.getElementById("terminal-dimensions");
 
@@ -345,19 +415,45 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", updateTerminalDimensions);
 
     // Also use ResizeObserver for terminal-specific changes
-    if (window.ResizeObserver) {
+    if (window.ResizeObserver && terminalBody) {
         const observer = new ResizeObserver(updateTerminalDimensions);
         observer.observe(terminalBody);
     }
 
 
-    /* ── 9. KEYBOARD ACCESSIBILITY FOR CERTIFICATE CARDS ─────── */
-    // Cards need tabindex="0" to be reachable by keyboard.
-    // We add it in JS (progressive enhancement) so it degrades
-    // gracefully if JS is off.
+    /* ── 10. KEYBOARD ACCESSIBILITY FOR CERTIFICATE CARDS ────────
+       Cards need tabindex="0" to be reachable by keyboard.
+       We add it in JS (progressive enhancement) so it degrades
+       gracefully if JS is off. The aria-label replaces the
+       "image alt + caption" double-read with one clear name.
+       ─────────────────────────────────────────────────────────── */
     document.querySelectorAll(".certificate-card").forEach(card => {
+        const title = card.querySelector(".certificate-title");
         card.setAttribute("tabindex", "0");
         card.setAttribute("role", "button");
+        card.setAttribute("aria-haspopup", "dialog");
+        if (title) card.setAttribute("aria-label", `${title.innerText} — view details`);
+    });
+
+
+    /* ── 11. CREDLY BADGE IFRAME TITLE ───────────────────────────
+       The Credly embed script injects an iframe with no title,
+       which screen readers announce as just "frame". We name it as
+       soon as it appears, using data-badge-title from the HTML.
+       ─────────────────────────────────────────────────────────── */
+    document.querySelectorAll(".credly-badge-card").forEach(card => {
+        const title = card.getAttribute("data-badge-title") || "Credly verified badge";
+
+        function labelIframe() {
+            const frame = card.querySelector("iframe");
+            if (frame) { frame.setAttribute("title", title); return true; }
+            return false;
+        }
+
+        if (!labelIframe() && window.MutationObserver) {
+            const obs = new MutationObserver(() => { if (labelIframe()) obs.disconnect(); });
+            obs.observe(card, { childList: true, subtree: true });
+        }
     });
 
 }); // end DOMContentLoaded
