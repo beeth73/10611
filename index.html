@@ -519,14 +519,13 @@
     <!-- ==================== FOOTER BAR ==================== -->
     <footer id="site-footer" aria-label="Status bar">
 
-        <!-- Quote — rotates every 8s via script.js. Not a live region on purpose:
-             screen readers should not be interrupted every few seconds. -->
+        <!-- Quote — picked ONCE on page load from the visitor's arrival time (see script.js).
+             Static text: no live region, no timers, nothing to pause.
+             Preview a specific quote with ?q=5 in the URL. -->
         <div id="footer-quote">
             <!-- Populated by script.js -->
         </div>
-
-        <!-- WCAG 2.2.2: auto-updating content needs a pause control -->
-        <button type="button" id="quote-toggle" aria-label="Pause quote rotation">[pause]</button>
+        <span id="quote-seed" class="quote-seed"></span>
 
         <!-- Dual clock -->
         <div id="footer-clock" role="group" aria-label="World clocks">
