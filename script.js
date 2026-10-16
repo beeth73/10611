@@ -8,7 +8,7 @@
    5. Theme Toggler
    6. Modal
    7. Footer Clock
-   8. Footer Quotes (with pause control)
+   8. Footer Quote (picked once, from the visitor's arrival time)
    9. Dynamic terminal dimensions
    10. Keyboard accessibility for certificate cards
    11. Credly badge iframe title
@@ -55,9 +55,6 @@ const QUOTES = [
     // { text: "Your quote here.",  source: "Attribution" },
     // { text: "Another quote.",    source: "" },
 ];
-
-/* Interval between quote rotations, in milliseconds */
-const QUOTE_INTERVAL_MS = 8000;
 
 
 /* ── 2. TIMEZONE CONFIG ──────────────────────────────────────────
@@ -306,65 +303,46 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateClocks, 1000);
 
 
-    /* ── 8. FOOTER QUOTES ────────────────────────────────────────
-       Not a live region (screen readers aren't interrupted), and
-       rotation can be paused (WCAG 2.2.2). Starts paused for people
-       who prefer reduced motion.
+    /* ── 8. FOOTER QUOTE ─────────────────────────────────────────
+       Picked ONCE on page load from the visitor's own clock:
+         seconds since local midnight  (0 … 86399)  mod  number of quotes
+       Same arrival second → same quote. Nothing rotates, nothing is a
+       live region, so there is nothing to pause (WCAG 2.2.2) and screen
+       readers just read ordinary text.
+
+       Preview any quote while editing the list:  yoursite/?q=5
+       (1-based, matches the "#5" shown in the footer.)
        ─────────────────────────────────────────────────────────── */
-    const quoteEl     = document.getElementById("footer-quote");
-    const quoteToggle = document.getElementById("quote-toggle");
+    const quoteEl = document.getElementById("footer-quote");
+    const seedEl  = document.getElementById("quote-seed");
 
     if (quoteEl && QUOTES.length > 0) {
-        // Shuffle once on load so order is random each visit
-        const shuffled = [...QUOTES].sort(() => Math.random() - 0.5);
-        let index  = 0;
-        let paused = reducedMotionQuery.matches;
+        const arrival = new Date();
+        const h = arrival.getHours();
+        const m = arrival.getMinutes();
+        const s = arrival.getSeconds();
+        const secondsSinceMidnight = h * 3600 + m * 60 + s;
 
-        function setQuote(q) {
-            const src = q.source ? ` — ${q.source}` : "";
-            quoteEl.textContent = `"${q.text}"${src}`;
+        let index     = secondsSinceMidnight % QUOTES.length;
+        let seedLabel = `seeded ${pad(h)}:${pad(m)}:${pad(s)}`;
+
+        // Optional ?q=N override (1-based) for previewing quotes
+        const qParam = new URLSearchParams(window.location.search).get("q");
+        if (qParam !== null && /^\d+$/.test(qParam) && parseInt(qParam, 10) >= 1) {
+            index     = (parseInt(qParam, 10) - 1) % QUOTES.length;
+            seedLabel = "preview";
         }
 
-        function syncToggle() {
-            if (!quoteToggle) return;
-            quoteToggle.textContent = paused ? "[resume]" : "[pause]";
-            quoteToggle.setAttribute(
-                "aria-label",
-                paused ? "Resume quote rotation" : "Pause quote rotation"
-            );
-        }
+        const q    = QUOTES[index];
+        const src  = q.source ? ` — ${q.source}` : "";
+        const full = `"${q.text}"${src}`;
 
-        // Set first quote immediately
-        setQuote(shuffled[0]);
-        syncToggle();
+        quoteEl.textContent = full;
+        quoteEl.setAttribute("title", full);   // full text on hover when the footer truncates it
 
-        if (quoteToggle) {
-            quoteToggle.addEventListener("click", () => {
-                paused = !paused;
-                syncToggle();
-            });
-        }
-
-        function rotateQuote() {
-            if (paused) return;
-
-            if (reducedMotionQuery.matches) {
-                // No fade — just swap
-                index = (index + 1) % shuffled.length;
-                setQuote(shuffled[index]);
-            } else {
-                quoteEl.classList.add("fading");
-                setTimeout(() => {
-                    index = (index + 1) % shuffled.length;
-                    setQuote(shuffled[index]);
-                    quoteEl.classList.remove("fading");
-                }, 650); // matches CSS transition duration
-            }
-        }
-
-        setInterval(rotateQuote, QUOTE_INTERVAL_MS);
-    } else if (quoteToggle) {
-        quoteToggle.hidden = true;
+        if (seedEl) seedEl.textContent = `#${index + 1}/${QUOTES.length} · ${seedLabel}`;
+    } else if (seedEl) {
+        seedEl.hidden = true;
     }
 
 

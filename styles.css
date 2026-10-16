@@ -626,23 +626,16 @@ section { margin-bottom: 4rem; }
     text-overflow: ellipsis;
     color: var(--accent-color);
     font-style: italic;
-    transition: opacity 0.6s ease;
 }
-#footer-quote.fading { opacity: 0; }
 
-/* Pause / resume control for the rotating quote */
-#quote-toggle {
-    background: none;
-    border: 0;
-    padding: 0.35rem 0.5rem;
-    margin: 0;
-    font: inherit;
-    font-size: 0.72rem;
-    color: var(--accent-color);
-    cursor: pointer;
+/* Small "#14/23 · seeded 14:32:07" tag next to the quote */
+.quote-seed {
     flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.7rem;
+    color: var(--muted-color);
+    letter-spacing: 0.04em;
 }
-#quote-toggle:hover { text-decoration: underline; }
 
 /* Clock area — right side */
 #footer-clock {
@@ -724,9 +717,9 @@ section { margin-bottom: 4rem; }
         overflow: hidden;
     }
 
-    /* On narrow screens, hide the quote (and its pause button); keep just the clock */
+    /* On narrow screens, hide the quote (and its seed tag); keep just the clock */
     #footer-quote,
-    #quote-toggle { display: none; }
+    #quote-seed { display: none; }
 
     #footer-clock { gap: 0.75rem; font-size: 0.72rem; }
     .clock-time { font-size: 0.78rem; }
