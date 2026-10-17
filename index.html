@@ -527,6 +527,12 @@
         </div>
         <span id="quote-seed" class="quote-seed"></span>
 
+        <!-- Thomas the husky: controls are revealed by thomas.js (hidden if JS is off) -->
+        <div id="thomas-controls" role="group" aria-label="Thomas the husky" hidden>
+            <button type="button" id="thomas-follow" aria-pressed="false" aria-label="Follow cursor" title="Thomas follows your cursor, keeping his distance">follow</button>
+            <button type="button" id="thomas-toggle"><span class="tc-verb">dismiss</span> <span class="tc-name">thomas</span></button>
+        </div>
+
         <!-- Dual clock -->
         <div id="footer-clock" role="group" aria-label="World clocks">
 
@@ -556,11 +562,15 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="thomas.js" defer></script>
     <script data-goatcounter="https://beeth.goatcounter.com/count" async src="https://gc.zgo.at/count.js" defer></script>
     <!-- mapmyvisitors scripts are left as plain (non-deferred) scripts on purpose:
          they may rely on running in place while the page parses. -->
-    <script type="text/javascript" id="mmvst_globe" src="https://mapmyvisitors.com/globe.js?d=lZFCRDGquvXuX0oFaahg2Ri_mxTUKV2a6X-YtghHOG0"></script>
-    <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&cl=ffffff&w=a"></script>
+    <!-- Visitor-map widget kept out of the layout, so it can never take space from the terminal -->
+    <div id="visitor-widget" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;" aria-hidden="true">
+        <script type="text/javascript" id="mmvst_globe" src="https://mapmyvisitors.com/globe.js?d=lZFCRDGquvXuX0oFaahg2Ri_mxTUKV2a6X-YtghHOG0"></script>
+        <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=xh8hqgC6X91PcIAY7226F-HHQQFLCFj9s_iLQtT1NMQ&cl=ffffff&w=a"></script>
+    </div>
     <!-- Credly badge embed -->
     <script async src="https://cdn.credly.com/assets/utilities/embed.js"></script>
 </body>
