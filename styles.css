@@ -18,6 +18,7 @@
    15. Footer Bar (Quotes + Clock)
    16. Responsive / Mobile
    17. Forced Colors (Windows High Contrast)
+   18. Thomas the husky (mascot)
    ============================================================ */
 
 
@@ -59,6 +60,8 @@
 html {
     scroll-behavior: smooth;
     box-sizing: border-box;
+    overflow: hidden;
+    overflow: clip;     /* the document can't scroll at all, even via anchor links; only .terminal-body does */
 }
 *, *::before, *::after { box-sizing: inherit; }
 
@@ -72,6 +75,13 @@ body {
     padding-bottom: var(--footer-height);
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 1.05em;
+    /* The page never scrolls: header + terminal + footer fill the viewport exactly */
+    position: fixed;    /* pinned to the viewport: no document scroll, no restored scroll position */
+    top: 0; right: 0; bottom: 0; left: 0;
+    overflow: hidden;
+    overflow: clip;     /* unlike hidden, clip is not a scroll container, so anchor jumps can't shift the layout */
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -130,11 +140,14 @@ body {
 
 /* Reduced-motion: disable all transitions / animations */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *:not(#thomas):not(#thomas *),
+    *:not(#thomas):not(#thomas *)::before,
+    *:not(#thomas):not(#thomas *)::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
     }
-    html { scroll-behavior: auto; }
+    #thomas .thomas-bubble { animation: none !important; }
+    html, .terminal-body { scroll-behavior: auto; }
 }
 
 
@@ -195,6 +208,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1.05rem 5%;
+    flex-shrink: 0;
 }
 
 .header-name {
@@ -282,13 +296,13 @@ input:checked + .slider::before { transform: translateX(26px); }
 
 
 /* ── 8. TERMINAL UI ──────────────────────────────────────────── */
-main { 
-    padding: 2.1rem 5%;
+main {
+    flex: 1;
+    min-height: 0;
+    padding: 1rem 5% 1.5rem;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - var(--footer-height) - 4.2rem);
-    min-height: calc(100dvh - var(--footer-height) - 4.2rem);   /* mobile browser toolbars */
+    align-items: stretch;
 }
 
 .terminal-window {
@@ -298,8 +312,7 @@ main {
     background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
-    height: 80vh;
-    height: 80dvh;
+    min-height: 0;
     max-width: 1400px;
     width: 100%;
 }
@@ -346,6 +359,8 @@ main {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    scroll-behavior: smooth;   /* nav links glide inside the terminal */
+    scroll-padding-top: 1rem;
 }
 
 .terminal-body h2 {
@@ -730,6 +745,78 @@ section { margin-bottom: 4rem; }
     main { padding: 1rem 3%; }
 }
 
+/* ── 18. THOMAS (decorative husky mascot) ───────────────────── */
+#thomas {
+    position: fixed; top: 0; left: 0;
+    width: 96px;
+    z-index: 90;              /* above page content, below the footer (100), loader and modal */
+    pointer-events: none;     /* never blocks a click */
+    will-change: transform;
+    --step: 0.6s;
+}
+#thomas[hidden] { display: none; }
+#thomas svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
+#thomas[data-dir="left"] .thomas-flip { transform: scaleX(-1); }
+#thomas .leg, #thomas .tail { transform-box: fill-box; }
+#thomas .leg  { transform-origin: 50% 5%; }
+#thomas .tail { transform-origin: 100% 100%; animation: thomas-wag 0.9s ease-in-out infinite alternate; }
+#thomas .tongue { display: none; }
+#thomas[data-state="idle"] .tongue,
+#thomas[data-state="run"]  .tongue { display: inline; }
+#thomas[data-state="idle"] .tail { animation-duration: 0.3s; }
+#thomas[data-state="run"] { --step: 0.3s; }
+#thomas[data-state="walk"] .leg-a, #thomas[data-state="run"] .leg-a { animation: thomas-step var(--step) ease-in-out infinite; }
+#thomas[data-state="walk"] .leg-b, #thomas[data-state="run"] .leg-b { animation: thomas-step var(--step) ease-in-out infinite; animation-delay: calc(var(--step) / -2); }
+#thomas[data-state="walk"] .thomas-body, #thomas[data-state="run"] .thomas-body { animation: thomas-bob calc(var(--step) / 2) ease-in-out infinite; }
+@keyframes thomas-step { 0%, 100% { transform: rotate(26deg); } 50% { transform: rotate(-26deg); } }
+@keyframes thomas-bob  { 50% { transform: translateY(-1.5px); } }
+@keyframes thomas-wag  { from { transform: rotate(-10deg); } to { transform: rotate(14deg); } }
+
+/* Comic speech bubble */
+#thomas .thomas-bubble {
+    position: absolute; bottom: calc(100% + 12px); left: 0;
+    width: max-content; max-width: 220px;
+    padding: 0.55rem 0.75rem;
+    background: #fff; color: #111;
+    border: 2px solid #111; border-radius: 14px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+    font-size: 0.78rem; line-height: 1.35; text-align: left;
+    transform-origin: var(--tail-x, 50%) 100%;
+}
+#thomas .thomas-bubble.pop { animation: thomas-pop 0.25s cubic-bezier(.3,1.6,.5,1); }
+#thomas .thomas-bubble::after {
+    content: ""; position: absolute; left: var(--tail-x, 50%); bottom: -9px;
+    width: 14px; height: 14px; background: #fff;
+    border-right: 2px solid #111; border-bottom: 2px solid #111;
+    transform: translateX(-50%) rotate(45deg);
+}
+#thomas .thomas-bubble.below { bottom: auto; top: calc(100% + 12px); transform-origin: var(--tail-x, 50%) 0; }
+#thomas .thomas-bubble.below::after { bottom: auto; top: -9px; border: 0; border-left: 2px solid #111; border-top: 2px solid #111; }
+@keyframes thomas-pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Footer buttons: "[follow]" and "[dismiss thomas]" */
+#thomas-controls { display: flex; flex-shrink: 0; }
+#thomas-controls button {
+    background: none; border: 0; margin: 0;
+    padding: 0.35rem 0.5rem;
+    font: inherit; font-size: 0.72rem;
+    color: var(--accent-color);
+    cursor: pointer;
+}
+#thomas-controls button::before { content: "["; content: "[" / ""; }
+#thomas-controls button::after  { content: "]"; content: "]" / ""; }
+#thomas-controls button:hover { text-decoration: underline; }
+#thomas-controls button[aria-pressed="true"] { font-weight: bold; text-decoration: underline; }
+#thomas-controls button:disabled { opacity: 0.5; cursor: default; text-decoration: none; }
+
+@media (max-width: 480px) {
+    #site-footer { padding: 0 0.75rem; }
+    #thomas-controls button { font-size: 0.68rem; padding: 0.35rem 0.3rem; }
+    .tc-verb { display: none; }   /* the button's aria-label still says "Dismiss/Call Thomas" */
+}
+@media print { #thomas, #thomas-controls { display: none; } }
+
+
 /* ── 17. FORCED COLORS (Windows High Contrast) ───────────────── */
 @media (forced-colors: active) {
     .slider { border: 1px solid ButtonText; }
@@ -738,5 +825,5 @@ section { margin-bottom: 4rem; }
     .certificate-card,
     .credly-badge-card,
     .project-tags li { border: 1px solid CanvasText; }
-    .terminal-button { forced-color-adjust: none; }
+    .terminal-button, #thomas { forced-color-adjust: none; }
 }
